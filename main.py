@@ -50,7 +50,6 @@ class Product():
     def returnNutrientTypes():
         return ["kcal", "protein", "fat", "carbs"]
 
-
 #Load products
 products_path = "products.json"
 products = loadJSON(products_path)
@@ -58,6 +57,10 @@ products = loadJSON(products_path)
 #Load userlog
 userLog_Path = "userLog.json"
 userLog = loadJSON(userLog_Path)
+
+#Load userTotalNutritionLog
+userTotalNutritionLog_Path = "userTotalNutritionLog.json"
+userTotalNutritionLog = loadJSON(userTotalNutritionLog_Path)
 
 #Add new product to products JSON file
 def addNewProduct(name = None, kcal = None, protein = None, fat = None, carbs = None, imagePath = None, price = None):
@@ -77,18 +80,42 @@ def nutritionInProduct(product, amount):
 #Return a dictionary containing quantities of all nutrients eaten within a certain date
 def nutritionOfDay(date):
     dayNutritionDict = {}
+    for key in Product.returnNutrientTypes():
+        dayNutritionDict[key] = 0
+
     for mealDics in userLog[date].values():
         for (product, amount) in mealDics.items():
+            temp = nutritionInProduct(product, amount)
             for nutrient in Product.returnNutrientTypes():
-                try:
-                    dayNutritionDict[nutrient] += nutritionInProduct(product, amount)[nutrient]
-                except:
-                    dayNutritionDict[nutrient] = nutritionInProduct(product, amount)[nutrient]
+                dayNutritionDict[nutrient] += temp[nutrient]
     return dayNutritionDict
 
+#Updates or sets total nutrition for a given day
+def setUserTotalNutritionLog(date):
+    userTotalNutritionLog[date] = nutritionOfDay(date)
+    writeJSON(userTotalNutritionLog_Path, userTotalNutritionLog)
 
-# Manually add new product
-addNewProduct(name= "Potato", kcal=250, protein=5)
+#Manually set total nutrition for a given day
+def additionalMealInDay(date):
+    userLog[date][f'Meal {len(userLog[date]) + 1}'] = {}
+    writeJSON(userLog_Path, userLog)
 
+#Manually add a product to a meal of a day
+def addProductToMeal(date, meal, product, amount):
+    try:
+        userLog[date][meal][product] += amount
+    except:
+        userLog[date][meal][product] = amount
+
+    writeJSON(userLog_Path, userLog)
+    setUserTotalNutritionLog(date)
+
+
+
+
+# addProductToMeal(date = "2024-1-03", meal = "Meal 3", product = "Potato", amount = 100)
+
+#addNewProduct(name= "Potato", kcal=250, protein=5)
 
 print(nutritionOfDay(date = "2024-1-03"))
+

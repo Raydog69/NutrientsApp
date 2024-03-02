@@ -1,8 +1,7 @@
 {
     "Pasta": {
         "name": "Pasta",
-        "nutrition": 
-        {
+        "nutrition": {
             "kcal": 360,
             "protein": 12,
             "fat": 1,
@@ -13,8 +12,7 @@
     },
     "Vann": {
         "name": "Vann",
-        "nutrition": 
-        {
+        "nutrition": {
             "kcal": 0,
             "protein": 0,
             "fat": 0,
@@ -25,8 +23,7 @@
     },
     "Oats": {
         "name": "Oats",
-        "nutrition": 
-        {
+        "nutrition": {
             "kcal": 350,
             "protein": 12,
             "fat": 3,
@@ -37,8 +34,7 @@
     },
     "Potato": {
         "name": "Potato",
-        "nutrition": 
-        {
+        "nutrition": {
             "kcal": 350,
             "protein": 12,
             "fat": 3,
@@ -46,5 +42,16 @@
         },
         "imagePath": null,
         "price": null
+    },
+    "Laks": {
+        "name": "Laks",
+        "nutrition": {
+            "kcal": 205,
+            "protein": 20,
+            "fat": 16,
+            "carbs": 1
+        },
+        "imagePath": null,
+        "price": 13.75
     }
 }

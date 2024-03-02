@@ -8,10 +8,10 @@
             "Vann": 1000
         },
         "Meal 3": {
-            "Potato": 300
+            "Potato": 100,
+            "Pasta": 314
         },
-        "Meal 4": {},
-        "Meal 5": {}
+        "Meal 4": {}
     },
     "2024-2-03": {
         "Meal 1": {

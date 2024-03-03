@@ -71,14 +71,13 @@ def addNewProduct(name = None, kcal = None, protein = None, fat = None, carbs = 
     product = Product(name, kcal, protein, fat, carbs, imagePath, price)
     productsDic[name] = product
     writeAllProductsToJson()  #Updates products.json
-addNewProduct(name="Sild", kcal=210, protein=9.5, fat=3.4, carbs=17, price=35)
+# addNewProduct(name="Sild", kcal=210, protein=9.5, fat=3.4, carbs=17, price=35)
 
 def removeProduct(product):
     productsDic.pop(product, None)
     writeAllProductsToJson()  #Updates products.json
 
-
-SildOgSkeva = Meal([("Sild", 55)])
+# SildOgSkeva = Meal([("Sild", 55)])
 # daysDic['2024-3-3'].addMeal(SildOgSkeva)
 
 def alterMeal(day, i):
@@ -92,6 +91,27 @@ def alterMeal(day, i):
             newProductAndAmount.append((newProduct, newAmount))
     day.meals[i].newProductAndAmount(newProductAndAmount)
 
-alterMeal(daysDic['2024-3-3'], 0) # parameter 1: day (2024/3/3), 2: id of meal (breakfast)
+# alterMeal(daysDic['2024-3-3'], 0) # parameter 1: day (2024/3/3), 2: id of meal (breakfast)
 
 writeAllDaysToJson()  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from website import create_app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)

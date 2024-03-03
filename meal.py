@@ -11,8 +11,8 @@ class Meal():
     def AddDish(self, productAndAmount = [(None, None)]):
         self.productAndAmount + productAndAmount
 
-    def getProductAndAmount(self):
-        return self.productAndAmount
+    def newProductAndAmount(self, new):
+        self.productAndAmount = new
     
     def toDict(self):
         meal_dict = {}

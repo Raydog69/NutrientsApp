@@ -27,9 +27,11 @@ def InitializeAllProducts(products_path = "products.json"):
                                 )
     return productsDic
 
+productsDic = InitializeAllProducts()
+
 def InitializeAllDays(file_path = "userLog.json"):
     daysData = loadJSON(file_path)
-    daysDicDicDic = {}
+    daysDic = {}
     for (date, dic) in daysData.items():
         meals = []
         for mealDic in dic["meals"]:
@@ -38,10 +40,9 @@ def InitializeAllDays(file_path = "userLog.json"):
                 products.append(tup)
             meals.append(Meal(products))
 
-        daysDic[date] = Day(date, meals, dic["totalNutrition"])
+        daysDic[date] = Day(date, meals, dic["totalNutrition"], productsDic)
     return daysDic
 
-productsDic = InitializeAllProducts()
 daysDic = InitializeAllDays()
 
 def makeDays(numdays):
@@ -78,7 +79,19 @@ def removeProduct(product):
 
 
 SildOgSkeva = Meal([("Sild", 55)])
-daysDic['2024-3-3'].addMeal(SildOgSkeva)
+# daysDic['2024-3-3'].addMeal(SildOgSkeva)
 
+def alterMeal(day, i):
+    productAndAmount = day.meals[i].productAndAmount
+    newProductAndAmount = []
+    for (product, amount) in productAndAmount:
+        print(f'{product} : {amount}')
+        newProduct = input("Remove or New product?")
+        newAmount = int(input("New amount?"))
+        if newProduct != "d":
+            newProductAndAmount.append((newProduct, newAmount))
+    day.meals[i].newProductAndAmount(newProductAndAmount)
+
+alterMeal(daysDic['2024-3-3'], 0) # parameter 1: day (2024/3/3), 2: id of meal (breakfast)
 
 writeAllDaysToJson()  

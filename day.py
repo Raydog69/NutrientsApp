@@ -1,17 +1,18 @@
 class Day():
-    def __init__(self, date = any, meals = [], totalNutrition = {}):
+    def __init__(self, date = any, meals = [], totalNutrition = {}, productsDic = any):
         self.date = date
         self.meals = meals
         self.totalNutrition = totalNutrition
         self.totalDict = []
+        self.productsDic = productsDic
 
-    def addMeal(self, meal):
+    def addMeal(self, meal, ):
         self.meals.append(meal)
-        self.getNutritionOfDay()
+        self.getNutritionOfDay(self.productsDic)
 
     def removeMeal(self, meal):
         self.meals.remove(meal)
-        self.getNutritionOfDay()
+        self.getNutritionOfDay(self.productsDic)
     
     def toDict(self):
         for meal in self.meals:

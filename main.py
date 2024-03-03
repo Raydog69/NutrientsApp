@@ -1,5 +1,9 @@
 import json
 import numpy as np
+from product import Product
+from meal import Meal
+from day import Day
+import datetime
 
 def loadJSON(file_path):
     with open(file_path) as json_file:
@@ -11,111 +15,83 @@ def writeJSON(file_path, loaded_Json):
     with open(file_path, "w") as json_file:
             json.dump(loaded_Json, json_file, indent=4)
 
-class Product():
-    def __init__(self, 
-                 name = None,
-                 kcal = None,
-                 protein = None,
-                 fat = None,
-                 carbs = None,
-                 imagePath = None,
-                 price = None
-                 ):
-        
-        self.name = name
-        self.kcal = kcal
-        self.protein = protein
-        self.fat = fat
-        self.carbs  = carbs
-        self.imagePath = imagePath
-        self.price = price
-    
-    def returnName(self):
-        return self.name
+def InitializeAllProducts(products_path = "products.json"):
+    productsData = loadJSON(products_path)
+    productsDic = {}
+    for product in productsData:
+        productsDic[product] = Product(name=product, 
+                                kcal=productsData[product]["nutrition"]["kcal"],
+                                protein=productsData[product]["nutrition"]["protein"],
+                                fat=productsData[product]["nutrition"]["fat"],
+                                carbs=productsData[product]["nutrition"]["carbs"]
+                                )
+    return productsDic
 
-    def returnDict(self):
-        return {
-        "name" : self.name,
-        "nutrition" : 
-        {
-            "kcal" : self.kcal,
-            "protein" : self.protein,
-            "fat" : self.fat,
-            "carbs" : self.carbs
-        },
-        "imagePath" : self.imagePath,
-        "price" : self.price
-        }
-    
-    def returnNutrientTypes():
-        return ["kcal", "protein", "fat", "carbs"]
+productsDic = InitializeAllProducts()
 
-#Load products
-products_path = "products.json"
-products = loadJSON(products_path)
+def InitializeAllDays(file_path = "userLog.json"):
+    daysData = loadJSON(file_path)
+    daysDic = {}
+    for (date, dic) in daysData.items():
+        meals = []
+        for mealDic in dic["meals"]:
+            products = []
+            for tup in mealDic.items():
+                products.append(tup)
+            meals.append(Meal(products))
 
-#Load userlog
-userLog_Path = "userLog.json"
-userLog = loadJSON(userLog_Path)
+        daysDic[date] = Day(date, meals, dic["totalNutrition"], productsDic)
+    return daysDic
 
-#Load userTotalNutritionLog
-userTotalNutritionLog_Path = "userTotalNutritionLog.json"
-userTotalNutritionLog = loadJSON(userTotalNutritionLog_Path)
+daysDic = InitializeAllDays()
 
-#Add new product to products JSON file
+def makeDays(numdays):
+    base = datetime.datetime.now()
+    datetimeList = [base + datetime.timedelta(days=x) for x in range(numdays)]
+    date_list = [f'{t.year}-{t.month}-{t.day}' for t in datetimeList]
+    for date in date_list:
+        try:
+            daysDic[date]
+        except:
+            daysDic[date] = Day(date)
+
+def writeAllProductsToJson(file_path = "products.json"):
+    products_data = {}
+    for (key, product) in productsDic.items():
+        products_data[key] = product.toDict()
+    writeJSON(file_path, products_data)
+
+def writeAllDaysToJson(file_path = "userLog.json"):
+    userLog_data = {}
+    for (key, day) in daysDic.items():
+        userLog_data[key] = day.toDict()
+    writeJSON(file_path, userLog_data)
+
 def addNewProduct(name = None, kcal = None, protein = None, fat = None, carbs = None, imagePath = None, price = None):
     product = Product(name, kcal, protein, fat, carbs, imagePath, price)
+    productsDic[name] = product
+    writeAllProductsToJson()  #Updates products.json
+addNewProduct(name="Sild", kcal=210, protein=9.5, fat=3.4, carbs=17, price=35)
 
-    products[product.returnName()] = product.returnDict()
-
-    writeJSON(products_path, products)
-
-#Return dictionary containing quatities of all nutrients in a certain amount of a given product
-def nutritionInProduct(product, amount):
-    scaledNutrients = {}
-    for (nutrient, consentration) in products[product]["nutrition"].items():
-        scaledNutrients[nutrient] = amount/100 * consentration
-    return scaledNutrients
-
-#Return a dictionary containing quantities of all nutrients eaten within a certain date
-def nutritionOfDay(date):
-    dayNutritionDict = {}
-    for key in Product.returnNutrientTypes():
-        dayNutritionDict[key] = 0
-
-    for mealDics in userLog[date].values():
-        for (product, amount) in mealDics.items():
-            temp = nutritionInProduct(product, amount)
-            for nutrient in Product.returnNutrientTypes():
-                dayNutritionDict[nutrient] += temp[nutrient]
-    return dayNutritionDict
-
-#Updates or sets total nutrition for a given day
-def setUserTotalNutritionLog(date):
-    userTotalNutritionLog[date] = nutritionOfDay(date)
-    writeJSON(userTotalNutritionLog_Path, userTotalNutritionLog)
-
-#Manually set total nutrition for a given day
-def additionalMealInDay(date):
-    userLog[date][f'Meal {len(userLog[date]) + 1}'] = {}
-    writeJSON(userLog_Path, userLog)
-
-#Manually add a product to a meal of a day
-def addProductToMeal(date, meal, product, amount):
-    try:
-        userLog[date][meal][product] += amount
-    except:
-        userLog[date][meal][product] = amount
-
-    writeJSON(userLog_Path, userLog)
-    setUserTotalNutritionLog(date)
+def removeProduct(product):
+    productsDic.pop(product, None)
+    writeAllProductsToJson()  #Updates products.json
 
 
+SildOgSkeva = Meal([("Sild", 55)])
+# daysDic['2024-3-3'].addMeal(SildOgSkeva)
 
+def alterMeal(day, i):
+    productAndAmount = day.meals[i].productAndAmount
+    newProductAndAmount = []
+    for (product, amount) in productAndAmount:
+        print(f'{product} : {amount}')
+        newProduct = input("Remove or New product?")
+        newAmount = int(input("New amount?"))
+        if newProduct != "d":
+            newProductAndAmount.append((newProduct, newAmount))
+    day.meals[i].newProductAndAmount(newProductAndAmount)
 
-# addProductToMeal(date = "2024-1-03", meal = "Meal 3", product = "Potato", amount = 100)
+alterMeal(daysDic['2024-3-3'], 0) # parameter 1: day (2024/3/3), 2: id of meal (breakfast)
 
-#addNewProduct(name= "Potato", kcal=250, protein=5)
-
-print(nutritionOfDay(date = "2024-1-03"))
-
+writeAllDaysToJson()  

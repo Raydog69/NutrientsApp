@@ -1,33 +1,8 @@
 {
-    "Pasta": {
-        "name": "Pasta",
-        "nutrition": 
-        {
-            "kcal": 360,
-            "protein": 12,
-            "fat": 1,
-            "carbs": 60
-        },
-        "imagePath": "link",
-        "price": 3
-    },
-    "Vann": {
-        "name": "Vann",
-        "nutrition": 
-        {
-            "kcal": 0,
-            "protein": 0,
-            "fat": 0,
-            "carbs": 0
-        },
-        "imagePath": "link",
-        "price": 0
-    },
     "Oats": {
         "name": "Oats",
-        "nutrition": 
-        {
-            "kcal": 350,
+        "nutrition": {
+            "kcal": 100,
             "protein": 12,
             "fat": 3,
             "carbs": 34
@@ -37,8 +12,7 @@
     },
     "Potato": {
         "name": "Potato",
-        "nutrition": 
-        {
+        "nutrition": {
             "kcal": 350,
             "protein": 12,
             "fat": 3,
@@ -46,5 +20,27 @@
         },
         "imagePath": null,
         "price": null
+    },
+    "Laks": {
+        "name": "Laks",
+        "nutrition": {
+            "kcal": 205,
+            "protein": 20,
+            "fat": 16,
+            "carbs": 1
+        },
+        "imagePath": null,
+        "price": null
+    },
+    "Sild": {
+        "name": "Sild",
+        "nutrition": {
+            "kcal": 210,
+            "protein": 9.5,
+            "fat": 3.4,
+            "carbs": 17
+        },
+        "imagePath": null,
+        "price": 35
     }
 }

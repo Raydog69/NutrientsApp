@@ -1,24 +1,1451 @@
 {
-    "2024-1-03": {
-        "Meal 1": {
-            "Pasta": 300,
-            "Oats": 50
-        },
-        "Meal 2": {
-            "Vann": 1000
-        },
-        "Meal 3": {
-            "Potato": 100,
-            "Pasta": 314
-        },
-        "Meal 4": {}
-    },
-    "2024-2-03": {
-        "Meal 1": {
-            "Potato": 100
-        },
-        "Meal 2": {
-            "Pasta": 200
+    "2024-3-3": {
+        "meals": [
+            {
+                "Sild": 55
+            }
+        ],
+        "totalNutrition": {
+            "kcal": 115.50000000000001,
+            "protein": 5.2250000000000005,
+            "fat": 1.87,
+            "carbs": 9.350000000000001
         }
+    },
+    "2024-3-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-3-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-4-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-5-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-6-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-7-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-8-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-9-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-10-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-11-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2024-12-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-25": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-26": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-27": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-28": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-29": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-30": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-1-31": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-1": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-2": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-3": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-4": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-5": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-6": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-7": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-8": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-9": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-10": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-11": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-12": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-13": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-14": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-15": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-16": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-17": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-18": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-19": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-20": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-21": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-22": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-23": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-24": {
+        "meals": [],
+        "totalNutrition": {}
+    },
+    "2025-2-25": {
+        "meals": [],
+        "totalNutrition": {}
     }
 }

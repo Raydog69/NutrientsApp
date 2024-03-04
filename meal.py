@@ -1,4 +1,3 @@
-import random
 class Meal():
     def __init__(self, productAndAmount = [(None, None)]):
         self.productAndAmount = productAndAmount
@@ -13,6 +12,15 @@ class Meal():
 
     def newProductAndAmount(self, new):
         self.productAndAmount = new
+
+    def getNutritionOfMeal(self, productsDic):
+        total_nutrition = {'kcal': 0.0, 'protein': 0.0, 'fat': 0.0, 'carbs': 0.0}
+
+        for (product, amount) in self.productAndAmount:
+            nutrition = productsDic[product].nutritionInProduct(amount)
+            for key in total_nutrition:
+                total_nutrition[key] += nutrition[key]
+        return total_nutrition
     
     def toDict(self):
         meal_dict = {}

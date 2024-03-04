@@ -40,7 +40,7 @@ def InitializeAllDays(file_path = "userLog.json"):
                 products.append(tup)
             meals.append(Meal(products))
 
-        daysDic[date] = Day(date, meals, dic["totalNutrition"], productsDic)
+        daysDic[date] = Day(date, meals, dic["water"], dic["totalNutrition"], productsDic)
     return daysDic
 
 daysDic = InitializeAllDays()
@@ -54,6 +54,7 @@ def makeDays(numdays):
             daysDic[date]
         except:
             daysDic[date] = Day(date)
+# makeDays(10)
 
 def writeAllProductsToJson(file_path = "products.json"):
     products_data = {}
@@ -79,6 +80,8 @@ def removeProduct(product):
 
 # SildOgSkeva = Meal([("Sild", 55)])
 # daysDic['2024-3-3'].addMeal(SildOgSkeva)
+
+daysDic['2024-3-3'].alterWater(daysDic['2024-3-3'].getWater() + 100)
 
 def alterMeal(day, i):
     productAndAmount = day.meals[i].productAndAmount

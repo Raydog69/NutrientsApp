@@ -95,6 +95,7 @@ def alterMeal(day, i):
     day.meals[i].newProductAndAmount(newProductAndAmount)
 
 # alterMeal(daysDic['2024-3-3'], 0) # parameter 1: day (2024/3/3), 2: id of meal (breakfast)
+print(daysDic['2024-3-3'].getNutritionOfDay(productsDic))
 
 writeAllDaysToJson()  
 

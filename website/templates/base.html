@@ -75,17 +75,26 @@
       crossorigin="anonymous"
     ></script>
 
-{% block javascript %}
+    {% block javascript %}
     <script type="text/javascript">
       function deleteNote(noteId) {
-  fetch("/delete-note", {
-    method: "POST",
-    body: JSON.stringify({ noteId: noteId }),
-  }).then((_res) => {
-    window.location.href = "/";
-  });
-  }
-</script>
-{% endblock %}
+        fetch("/delete-note", {
+          method: "POST",
+          body: JSON.stringify({ noteId: noteId }),
+        }).then((_res) => {
+          window.location.href = "/";
+        });
+        }
+
+      function addDay(year, month, date) {
+        fetch("/add-day", {
+          method: "POST",
+          body: JSON.stringify({year: year, month: month, date: date}),
+        }).then((_res) => {
+          window.location.href = "/";
+        });
+        }
+    </script>
+    {% endblock %}
   </body>
 </html>

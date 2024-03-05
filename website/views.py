@@ -36,3 +36,21 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+
+@views.route('/add-day', methods=['POST'])
+def add_day():  
+    dateDic = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
+    year = dateDic["year"]
+    month = dateDic['month']
+    day = dateDic['date']
+    date = f'{year}-{month}-{day}'
+    day = Day.query.get(date)
+    if day:
+        print(day.water)
+    else:
+        new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
+        db.session.add(new_day) #adding the note to the database 
+        db.session.commit()
+
+    return jsonify({})

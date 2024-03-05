@@ -7,12 +7,12 @@
             }
         ],
         "totalNutrition": {
-            "kcal": 1250.0,
-            "protein": 78.0,
-            "fat": 45.6,
-            "carbs": 70.0
+            "kcal": 830.0,
+            "protein": 59.0,
+            "fat": 38.8,
+            "carbs": 36.0
         },
-        "water": 6000
+        "water": 7100
     },
     "2024-3-4": {
         "meals": [],

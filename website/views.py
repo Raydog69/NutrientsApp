@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .models import Day
 from . import db
 import json
-import backendMain
+from day import Day as DayData
 
 views = Blueprint('views', __name__)
 
@@ -49,7 +49,7 @@ def add_day():
     if day:
         print(day.water)
     else:
-        new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
+        new_day = Day(date=date, user_id=current_user.id, data=DayData(date=date))  #providing the schema for the note 
         db.session.add(new_day) #adding the note to the database 
         db.session.commit()
 

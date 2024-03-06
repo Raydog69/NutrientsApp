@@ -7,7 +7,7 @@ class Day(db.Model):
     date = 0
     meals = []
     water = 0
-    data = "nigga" + str(meals) + str(water)
+    data = "hey"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

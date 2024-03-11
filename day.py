@@ -7,7 +7,7 @@ class Day():
         self.totalDict = []
         self.productsDic = productsDic
 
-    def addMeal(self, meal, ):
+    def addMeal(self, meal):
         self.meals.append(meal)
         self.getNutritionOfDay(self.productsDic)
 

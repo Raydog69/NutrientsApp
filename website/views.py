@@ -1,12 +1,17 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Day
+from .models import Meal
 from . import db
 import json
-from day import Day as DayData
 
 views = Blueprint('views', __name__)
 
+def loadJSON(file_path):
+    with open(file_path) as json_file:
+        file_contents = json_file.read()
+    dict = json.loads(file_contents)
+    return dict
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
@@ -39,18 +44,27 @@ def delete_note():
 
 
 @views.route('/add-day', methods=['POST'])
-def add_day():  
+def add_day():
     dateDic = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
     year = dateDic["year"]
     month = dateDic['month']
     day = dateDic['date']
     date = f'{year}-{month}-{day}'
-    day = Day.query.get(date)
+    day = Day.query.filter(Day.date == date, Day.user_id == current_user.id).first()
+
     if day:
-        print(day.water)
+        print("Aldready Exits")
+        for meal in day.meals:
+            print(meal.meal)
+            print(meal.calculate_total_nutrition())
+
     else:
-        new_day = Day(date=date, user_id=current_user.id, data=DayData(date=date))  #providing the schema for the note 
+        new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
         db.session.add(new_day) #adding the note to the database 
         db.session.commit()
 
+        new_meal_data = {"Potato": 200}
+        new_meal = Meal(meal=new_meal_data, day_id = new_day.id) 
+        db.session.add(new_meal)
+        db.session.commit()
     return jsonify({})

@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
     <h1 align="center">Notes</h1>
-    <ul class="list-group list-group-flush" id="notes">
+    <!-- <ul class="list-group list-group-flush" id="notes">
       {% for note in user.notes %}
       <li class="list-group-item">
         {{ note.date }}
@@ -17,6 +17,58 @@
       <div align="center">
         <button type="submit" class="btn btn-primary">Add Note</button>
       </div>
+    </form> -->
+    <div>
+      <h1>Breakfast</h1>
+      <ul class="list-group list-group-flush" id="notes">
+        {% if current_day %}
+            {% for meal in current_day.meals %}
+                <h1>New meal</h1>
+                {% for (product, amount) in meal.meal.items() %}
+                    <li class="list-group-item">
+                        {{ product }}: {{ amount }}g
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>No meals recorded for today.</p>
+        {% endif %}
+    </ul>
+    </div>
+    <form method="POST" action="/add-meal">
+      <h3 align="center">Add meal</h3>
+      <div class="form-group">
+        <label for="mealTime">Meal Time</label>
+        <input
+          type="text"
+          class="form-control"
+          id="mealTime"
+          name="mealTime"
+          placeholder="Enter meal time"
+        />
+      </div>
+      <div class="form-group">
+        <label for="product">Product</label>
+        <input
+          type="text"
+          class="form-control"
+          id="product"
+          name="product"
+          placeholder="Enter product"
+        />
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input
+          type="text"
+          class="form-control"
+          id="amount"
+          name="amount"
+          placeholder="Enter amount"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br>
     <h3 align="center">March</h3>
@@ -89,8 +141,8 @@
               <td><button>11</button></td>
               <td><button>12</button></td>
               <td><button>13</button></td>
-              <td><button>14</button></td>
-              <td><button>15</button></td>
+              <td><button onClick="addDay(2024, 3, 14)">14</button></td>
+              <td><button onClick="addDay(2024, 3, 15)">15</button></td>
               <td><button>16</button></td>
             </tr>
             <tr>

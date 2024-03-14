@@ -1,7 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-import datetime
+from datetime import datetime
 import json
 
 def loadJSON(file_path):
@@ -23,7 +23,6 @@ class Meal(db.Model):
     def meal(self, value):
         self._meal = json.dumps(value) if value else None
 
-        
     def calculate_total_nutrition(self):
         if not self._meal:
             return None  # No meal data, return None or appropriate default value
@@ -49,5 +48,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    notes = db.relationship('Day')
+    days = db.relationship('Day')
 
+class SelectedDayId(db.Model):
+    id = db.Column(db.Integer, primary_key=True)

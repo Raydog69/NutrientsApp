@@ -49,7 +49,6 @@ def sign_up():
    
     return render_template("add_product.html", user=current_user)
 
-
 @views.route("/add-meal", methods=['POST'])
 def add_meal():
     mealTime = request.form.get('mealTime')

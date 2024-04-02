@@ -68,107 +68,7 @@
 <h3 align="center">March</h3>
 
 
-<table bgcolor="lightgrey" align="center" cellspacing="21" cellpadding="21">
-      
-    <!-- The tr tag is used to enter 
-        rows in the table -->
 
-    <!-- It is used to give the heading to the
-        table. We can give the heading to the 
-        top and bottom of the table -->
-
-    <caption align="top">
-        <!-- Here we have used the attribute 
-            that is style and we have colored 
-            the sentence to make it better 
-            depending on the web page-->
-    </caption>
-
-    <!-- Here th stands for the heading of the
-        table that comes in the first row-->
-
-    <!-- The text in this table header tag will 
-        appear as bold and is center aligned-->
-
-    <thead>
-        <tr>
-            <!-- Here we have applied inline style 
-                  to make it more attractive-->
-            <th>Sun</th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>sat</th>
-        </tr>
-    </thead>
-      
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <!-- <form method="POST">
-              <textarea name="note" id="note" class="form-control"></textarea>
-              <br />
-              <div align="center">
-                <button type="submit" class="btn btn-primary">1</button>
-              </div>
-            </form> -->
-            <td><button onClick="addDay(2024, 3, 1)">1</button></td>
-            <td><button onClick="addDay(2024, 3, 2)">2</button></td>
-        </tr>
-        <tr></tr>
-        <tr>
-          <td><button onClick="addDay(2024, 3, 3)">3</button></td>
-          <td><button onClick="addDay(2024, 3, 4)">4</button></td>
-          <td><button onClick="addDay(2024, 3, 5)">5</button></td>
-          <td><button onClick="addDay(2024, 3, 6)">6</button></td>
-          <td><button onClick="addDay(2024, 3, 7)">7</button></td>
-          <td><button onClick="addDay(2024, 3, 8)">8</button></td>
-          <td><button onClick="addDay(2024, 3, 9)">9</button></td>
-        </tr>
-        <tr>
-          <td><button onClick="addDay(2024, 3, 10)">10</button></td>
-          <td><button onClick="addDay(2024, 3, 11)">11</button></td>
-          <td><button onClick="addDay(2024, 3, 12)">12</button></td>
-          <td><button onClick="addDay(2024, 3, 13)">13</button></td>
-          <td><button onClick="addDay(2024, 3, 14)">14</button></td>
-          <td><button onClick="addDay(2024, 3, 15)">15</button></td>
-          <td><button onClick="addDay(2024, 3, 16)">16</button></td>
-        </tr>
-        <tr>
-          <td><button onClick="addDay(2024, 3, 17)">17</button></td>
-          <td><button onClick="addDay(2024, 3, 18)">18</button></td>
-          <td><button onClick="addDay(2024, 3, 19)">19</button></td>
-          <td><button onClick="addDay(2024, 3, 20)">20</button></td>
-          <td><button onClick="addDay(2024, 3, 21)">21</button></td>
-          <td><button onClick="addDay(2024, 3, 22)">22</button></td>
-          <td><button onClick="addDay(2024, 3, 23)">23</button></td>
-        </tr>
-        <tr>
-          <td><button onClick="addDay(2024, 3, 24)">24</button></td>
-          <td><button onClick="addDay(2024, 3, 25)">25</button></td>
-          <td><button onClick="addDay(2024, 3, 26)">26</button></td>
-          <td><button onClick="addDay(2024, 3, 27)">27</button></td>
-          <td><button onClick="addDay(2024, 3, 28)">28</button></td>
-          <td><button onClick="addDay(2024, 3, 29)">29</button></td>
-          <td><button onClick="addDay(2024, 3, 30)">30</button></td>
-        </tr>
-        <tr>
-          <td><button onClick="addDay(2024, 3, 31)">31</button></td>
-          <td><button>1</button></td>
-          <td><button>2</button></td>
-          <td><button>3</button></td>
-          <td><button>4</button></td>
-          <td><button>5</button></td>
-          <td><button>6</button></td>
-        </tr>
-    </tbody>
-</table>
    
 
 <div class="calendar">
@@ -210,8 +110,8 @@
               <h1 style="color: antiquewhite; ">{{ meal_types[loop.index - 1] }}</h1>
                 <div style="display: flex; flex-direction: row; justify-content: right; align-items: center; width: 25%; align-items: center;">
                   <h4 style="color: antiquewhite; margin-right: 10%; font-size: smaller; width: 20%;">{{ nutrition_list[loop.index - 1]["kcal"] }} kalorier</h4>
-                  <button class="btn btn-secondary" type="button">
-                    <a class="nav-item nav-link" id="logout" href="/add-product">+</a>
+                  <button class="btn btn-secondary" type="button" onclick="addProduct({{loop.index - 1}})">
+                    <a class="nav-item nav-link" id="add_product" >+</a>
 
                   </button>
                 </div>
@@ -252,32 +152,34 @@
 </div>
 <script > 
  // Function to set the current day
- function setCurrentDay(year, month, day, object) {
+ function setselectedDay(year, month, day, object) {
     currentYear = year;
     currentMonthIndex = month;
-    currentDay = day;
+    selectedDay = day;
 
-    // Update the calendar grid
 
-    // Update the displayed current day
-    document.querySelector('.calendar__day-number--current').classList.remove('calendar__day-number--current');
-    object.classList.add('calendar__day-number--current');
-    addDay(currentYear, currentMonthIndex + 1, currentDay);
-
-    updateCalendarGrid();
-
+    updateCalendarGrid(); 
   }
   // month abbreviations
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
+
   // get current date values
   let currentDate = new Date();
   let currentYear = currentDate.getFullYear();
   let currentMonth = currentDate.getMonth();
-  let currentDay = currentDate.getDate();
+
+  var selectedDay = localStorage.getItem("someVarKey");
+
+  if (!selectedDay) {
+    let selectedDay = currentDate.getDate();
+    console.log("Yup")
+  }
+  console.log(selectedDay)
+
 
   let currentMonthIndex = currentDate.getMonth(); // Initialize current month index
-  
+
+
   function nextMonth() {
     currentMonthIndex = (currentMonthIndex + 1) % 12; // Increment month index
     if (currentMonthIndex === 0) {
@@ -311,20 +213,22 @@
     week.classList.add('calendar__day-numbers-row');
 
     // Generate new grid of days for the current month
+
     for (let i = 1; i <= daysInMonth; i++) {
       let day = document.createElement('button');
       day.classList.add('calendar__day-number');
       day.innerText = i;
-      if (i === currentDay && currentMonthIndex === currentMonth) {
+      if (i.toString() === selectedDay) {
         day.classList.add('calendar__day-number--current');
-      }
-      day.onclick = function() {
-        setCurrentDay(currentYear, currentMonthIndex, i, day);
-
-        addDay(currentYear, currentMonthIndex + 1, currentDay);
-        console.log(currentYear, currentMonthIndex, currentDay);
-
       };
+
+
+      day.onclick = function() {
+        setselectedDay(currentYear, currentMonthIndex, i, day);
+        localStorage.setItem("someVarKey", selectedDay);
+        addDay(currentYear, currentMonthIndex + 1, i);
+      };
+      
       week.append(day);
 
       if (new Date(currentYear, currentMonthIndex, i).getDay() === 6 || i === daysInMonth) {

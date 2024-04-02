@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from .models import Day
 from .models import Meal
+from .models import User
 from .models import SelectedDayId
 from . import db
 import json
@@ -18,18 +19,35 @@ def loadJSON(file_path):
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    # User.query.delete()
     # Day.query.delete()
     # Meal.query.delete()
     try:
         selectedDayId = SelectedDayId.query.first().id
         current_day = Day.query.get(selectedDayId) if selectedDayId else None
+        nutrition_list = []
 
-        print(Meal.query.get(current_day.id).calculate_total_nutrition())
+        existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
+        if not existing_meals:
+            for i in range(3):
+                new_meal = Meal(day_id = current_day.id)
+                db.session.add(new_meal)
+                db.session.commit()
+            nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
+        if existing_meals: 
+            for meal in existing_meals:
+                nutrition_list.append(meal.calculate_total_nutrition())
+        print(nutrition_list)
     except Exception as e:
         flash('Error occurred while retrieving data: {}'.format(str(e)), 'error')
         current_day = None
 
-    return render_template("home.html", user=current_user, current_day=current_day)
+    return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list)
+
+@views.route('/add-product', methods=['GET', 'POST'])
+def sign_up():
+   
+    return render_template("add_product.html", user=current_user)
 
 
 @views.route("/add-meal", methods=['POST'])
@@ -47,24 +65,21 @@ def add_meal():
         flash('Missing information', category='error')
     else:
         try:
-            mealTime = int(mealTime)
             amount = int(amount)
-            # meal = current_day.meals[mealTime].meal
-            existing_meal = Meal.query.filter(Meal.day_id == current_day.id).first()
-            print(existing_meal)
-            new_meal = existing_meal.meal
-            db.session.delete(existing_meal)
+            mealTime = int(mealTime)
+            
+            existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
+            new_meal_data = existing_meals[mealTime].meal
+            db.session.delete(existing_meals[mealTime])
 
-            if product in new_meal:
-                new_meal[product] += amount
+            if product in new_meal_data:
+                new_meal_data[product] += amount
             else:
-                new_meal[product] = amount
+                new_meal_data[product] = amount
 
-            existing_meal.meal = new_meal
-            db.session.add(existing_meal)
+            existing_meals[mealTime].meal = new_meal_data
+            db.session.add(existing_meals[mealTime])
             db.session.commit()
-
-           
             
 
             flash('Meal added successfully', category='success')
@@ -74,18 +89,6 @@ def add_meal():
 
     return redirect(url_for('views.home'))
 
-
-@views.route('/delete-note', methods=['POST'])
-def delete_note():  
-    day = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
-    noteId = day['noteId']
-    day = Day.query.get(noteId)
-    if day:
-        if day.user_id == current_user.id:
-            db.session.delete(day)
-            db.session.commit()
-
-    return jsonify({})
 
 
 @views.route('/add-day', methods=['POST'])
@@ -100,18 +103,32 @@ def add_day():
     if day:
         selectedDayId = SelectedDayId.query.first()
         if not selectedDayId:
+            selectedDayId = selectedDayId(id = day.id)
             db.session.add(selectedDayId)
             db.session.commit()
 
         else:
             selectedDayId.id = day.id
+
             db.session.commit()
 
     else:
+
         print("Day added")
         new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
         db.session.add(new_day) #adding the note to the database 
         db.session.commit()
+        
+        selectedDayId = SelectedDayId.query.first()
+        if not selectedDayId:
+            selectedDayId = selectedDayId(id = new_day.id)
+            db.session.add(selectedDayId)
+            db.session.commit()
+
+        else:
+            selectedDayId.id = new_day.id
+
+            db.session.commit()
 
     return jsonify({})
 

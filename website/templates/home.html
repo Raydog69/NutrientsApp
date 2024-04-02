@@ -1,177 +1,349 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
-    <h1 align="center">Notes</h1>
-    <!-- <ul class="list-group list-group-flush" id="notes">
-      {% for note in user.notes %}
-      <li class="list-group-item">
-        {{ note.date }}
-        <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </li>
-      {% endfor %}
-    </ul>
-    <form method="POST">
-      <textarea name="note" id="note" class="form-control"></textarea>
-      <br />
-      <div align="center">
-        <button type="submit" class="btn btn-primary">Add Note</button>
-      </div>
-    </form> -->
-    <div>
-      <h1>Breakfast</h1>
-      <ul class="list-group list-group-flush" id="notes">
-        {% if current_day %}
-            {% for meal in current_day.meals %}
-                <h1>New meal</h1>
-                {% for (product, amount) in meal.meal.items() %}
-                    <li class="list-group-item">
-                        {{ product }}: {{ amount }}g
-                    </li>
-                {% endfor %}
-            {% endfor %}
-        {% else %}
-            <p>No meals recorded for today.</p>
-        {% endif %}
-    </ul>
+<style>
+
+
+.calendar {
+  background-color: #FFF;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.8rem 1.6rem rgba(35, 131, 157, 0.2);
+  padding: 3.2rem;
+  width: 485px;
+}
+.calendar__header {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.2rem;
+  padding: 0 0.4rem 1.2rem;
+  text-transform: uppercase;
+}
+.calendar__day-names {
+  border-bottom: 0.1rem solid #828889;
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem 0;
+}
+.calendar__day-name {
+  aspect-ratio: 1;
+  color: #828889;
+  font-weight: normal;
+  text-align: center;
+  width: 2.4rem;
+}
+.calendar__day_numbers {
+  display: flex;
+  flex-direction: column;
+}
+.calendar__day-numbers-row {
+  display: flex;
+  gap: 1.2rem;
+  padding: 0.6rem 0;
+}
+.calendar__day-numbers-row:first-child {
+  justify-content: flex-end;
+}
+.calendar__day-number {
+  align-content: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  color: #000;
+  display: flex;
+  line-height: 1.4;
+  text-align: center;
+  width: 2.4rem;
+}
+.calendar__day-number--current {
+  background-color: #23839D;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.4rem #23839D;
+  color: #FFF;
+}
+</style>
+    
+<h1 align="center" style="color: antiquewhite;">{{current_day}}</h1>
+<h3 align="center">March</h3>
+
+
+<table bgcolor="lightgrey" align="center" cellspacing="21" cellpadding="21">
+      
+    <!-- The tr tag is used to enter 
+        rows in the table -->
+
+    <!-- It is used to give the heading to the
+        table. We can give the heading to the 
+        top and bottom of the table -->
+
+    <caption align="top">
+        <!-- Here we have used the attribute 
+            that is style and we have colored 
+            the sentence to make it better 
+            depending on the web page-->
+    </caption>
+
+    <!-- Here th stands for the heading of the
+        table that comes in the first row-->
+
+    <!-- The text in this table header tag will 
+        appear as bold and is center aligned-->
+
+    <thead>
+        <tr>
+            <!-- Here we have applied inline style 
+                  to make it more attractive-->
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>sat</th>
+        </tr>
+    </thead>
+      
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!-- <form method="POST">
+              <textarea name="note" id="note" class="form-control"></textarea>
+              <br />
+              <div align="center">
+                <button type="submit" class="btn btn-primary">1</button>
+              </div>
+            </form> -->
+            <td><button onClick="addDay(2024, 3, 1)">1</button></td>
+            <td><button onClick="addDay(2024, 3, 2)">2</button></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td><button onClick="addDay(2024, 3, 3)">3</button></td>
+          <td><button onClick="addDay(2024, 3, 4)">4</button></td>
+          <td><button onClick="addDay(2024, 3, 5)">5</button></td>
+          <td><button onClick="addDay(2024, 3, 6)">6</button></td>
+          <td><button onClick="addDay(2024, 3, 7)">7</button></td>
+          <td><button onClick="addDay(2024, 3, 8)">8</button></td>
+          <td><button onClick="addDay(2024, 3, 9)">9</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="addDay(2024, 3, 10)">10</button></td>
+          <td><button onClick="addDay(2024, 3, 11)">11</button></td>
+          <td><button onClick="addDay(2024, 3, 12)">12</button></td>
+          <td><button onClick="addDay(2024, 3, 13)">13</button></td>
+          <td><button onClick="addDay(2024, 3, 14)">14</button></td>
+          <td><button onClick="addDay(2024, 3, 15)">15</button></td>
+          <td><button onClick="addDay(2024, 3, 16)">16</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="addDay(2024, 3, 17)">17</button></td>
+          <td><button onClick="addDay(2024, 3, 18)">18</button></td>
+          <td><button onClick="addDay(2024, 3, 19)">19</button></td>
+          <td><button onClick="addDay(2024, 3, 20)">20</button></td>
+          <td><button onClick="addDay(2024, 3, 21)">21</button></td>
+          <td><button onClick="addDay(2024, 3, 22)">22</button></td>
+          <td><button onClick="addDay(2024, 3, 23)">23</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="addDay(2024, 3, 24)">24</button></td>
+          <td><button onClick="addDay(2024, 3, 25)">25</button></td>
+          <td><button onClick="addDay(2024, 3, 26)">26</button></td>
+          <td><button onClick="addDay(2024, 3, 27)">27</button></td>
+          <td><button onClick="addDay(2024, 3, 28)">28</button></td>
+          <td><button onClick="addDay(2024, 3, 29)">29</button></td>
+          <td><button onClick="addDay(2024, 3, 30)">30</button></td>
+        </tr>
+        <tr>
+          <td><button onClick="addDay(2024, 3, 31)">31</button></td>
+          <td><button>1</button></td>
+          <td><button>2</button></td>
+          <td><button>3</button></td>
+          <td><button>4</button></td>
+          <td><button>5</button></td>
+          <td><button>6</button></td>
+        </tr>
+    </tbody>
+</table>
+   
+
+<div class="calendar">
+  <header class="calendar__header">
+    <button onclick="previousMonth()">Previous Month</button>
+    <div class="calendar__month"></div>
+    <div class="calendar__year"></div>
+    <button onclick="nextMonth()">Next Month</button>
+  </header>
+  <div class="calendar__grid">
+    <div class="calendar__day-names">
+      <span class="calendar__day-name">S</span>
+      <span class="calendar__day-name">M</span>
+      <span class="calendar__day-name">T</span>
+      <span class="calendar__day-name">W</span>
+      <span class="calendar__day-name">T</span>
+      <span class="calendar__day-name">F</span>
+      <span class="calendar__day-name">S</span>
     </div>
-    <form method="POST" action="/add-meal">
-      <h3 align="center">Add meal</h3>
-      <div class="form-group">
-        <label for="mealTime">Meal Time</label>
-        <input
-          type="text"
-          class="form-control"
-          id="mealTime"
-          name="mealTime"
-          placeholder="Enter meal time"
-        />
-      </div>
-      <div class="form-group">
-        <label for="product">Product</label>
-        <input
-          type="text"
-          class="form-control"
-          id="product"
-          name="product"
-          placeholder="Enter product"
-        />
-      </div>
-      <div class="form-group">
-        <label for="amount">Amount</label>
-        <input
-          type="text"
-          class="form-control"
-          id="amount"
-          name="amount"
-          placeholder="Enter amount"
-        />
-      </div>
-      <br />
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <br>
-    <h3 align="center">March</h3>
-    <table bgcolor="lightgrey" align="center"
-        cellspacing="21" cellpadding="21">
-         
-        <!-- The tr tag is used to enter 
-            rows in the table -->
- 
-        <!-- It is used to give the heading to the
-            table. We can give the heading to the 
-            top and bottom of the table -->
- 
-        <caption align="top">
-            <!-- Here we have used the attribute 
-                that is style and we have colored 
-                the sentence to make it better 
-                depending on the web page-->
-        </caption>
- 
-        <!-- Here th stands for the heading of the
-            table that comes in the first row-->
- 
-        <!-- The text in this table header tag will 
-            appear as bold and is center aligned-->
- 
-        <thead>
-            <tr>
-                <!-- Here we have applied inline style 
-                     to make it more attractive-->
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>sat</th>
-            </tr>
-        </thead>
-         
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <!-- <form method="POST">
-                  <textarea name="note" id="note" class="form-control"></textarea>
-                  <br />
-                  <div align="center">
-                    <button type="submit" class="btn btn-primary">1</button>
-                  </div>
-                </form> -->
-                <td><button onClick="addDay(2024, 3, 1)">1</button></td>
-                <td><button onClick="addDay(2024, 3, 2)">2</button></td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td><button>3</button></td>
-              <td><button>4</button></td>
-              <td><button>5</button></td>
-              <td><button>6</button></td>
-              <td><button>7</button></td>
-              <td><button>8</button></td>
-              <td><button>9</button></td>
-            </tr>
-            <tr>
-              <td><button>10</button></td>
-              <td><button>11</button></td>
-              <td><button>12</button></td>
-              <td><button>13</button></td>
-              <td><button onClick="addDay(2024, 3, 14)">14</button></td>
-              <td><button onClick="addDay(2024, 3, 15)">15</button></td>
-              <td><button>16</button></td>
-            </tr>
-            <tr>
-              <td><button>17</button></td>
-              <td><button>18</button></td>
-              <td><button>19</button></td>
-              <td><button>20</button></td>
-              <td><button>21</button></td>
-              <td><button>22</button></td>
-              <td><button>23</button></td>
-            </tr>
-            <tr>
-              <td><button>24</button></td>
-              <td><button>25</button></td>
-              <td><button>26</button></td>
-              <td><button>27</button></td>
-              <td><button>28</button></td>
-              <td><button>29</button></td>
-              <td><button>30</button></td>
-            </tr>
-            <tr>
-              <td><button>31</button></td>
-              <td><button>1</button></td>
-              <td><button>2</button></td>
-              <td><button>3</button></td>
-              <td><button>4</button></td>
-              <td><button>5</button></td>
-              <td><button>6</button></td>
-            </tr>
-        </tbody>
-    </table>
-    {% endblock %}
+    <div class="calendar__day-numbers"></div>
+  </div>
+</div>
+
+
+
+<div>
+  <ul class="list-group list-group-flush" id="notes">
+    {% if current_day %}
+        {% set meal_types = ['Breakfast', 'Lunch', 'Dinner'] %}
+        <div style="display: flex; flex-direction: row; margin: 10px; justify-content: space-between; width: 25%;">
+          <p style="color: antiquewhite;"> protein </p>
+          <p style="color: antiquewhite;"> fat </p>
+          <p style="color: antiquewhite;"> carbs </p>
+        </div>
+        {% for meal in current_day.meals %}
+        <div style="background-color: rgb(54, 54, 54); padding-left:10px; padding-right:10px;padding-top:10px; border-radius: 20px; margin-bottom: 20px;">
+          <div style="background-color: rgb(54, 54, 54); border-top-left-radius: 20px; border-top-right-radius: 20px;">
+            <div class="d-inline-flex gap-1" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
+              <h1 style="color: antiquewhite; ">{{ meal_types[loop.index - 1] }}</h1>
+                <div style="display: flex; flex-direction: row; justify-content: right; align-items: center; width: 25%; align-items: center;">
+                  <h4 style="color: antiquewhite; margin-right: 10%; font-size: smaller; width: 20%;">{{ nutrition_list[loop.index - 1]["kcal"] }} kalorier</h4>
+                  <button class="btn btn-secondary" type="button">
+                    <a class="nav-item nav-link" id="logout" href="/add-product">+</a>
+
+                  </button>
+                </div>
+            </div>
+          </div>
+          <div style="margin-bottom: 20px; ">
+            <div  id="parentDiv{{loop.index}}" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background-color: rgb(54, 54, 54);" >
+                <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 25%;">
+                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["protein"] }} </p>
+                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["fat"] }} </p>
+                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["carbs"] }} </p>
+                </div>
+                <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{loop.index}}" aria-expanded="false" aria-controls="collapseExample">
+                  v
+                </button>
+            </div>
+            <div id="collapseExample{{loop.index}}">
+              <br>
+              <hr style="color: white; margin: 0;">
+
+                <ul class="list-group">
+                  {% for (product, amount) in meal.meal.items() %}
+                    <li class="list-group-item" style="border-bottom: 1px rgb(100, 100, 100) solid; color: antiquewhite; background-color: rgb(54, 54, 54);">
+                        <p style="margin: 0; font-weight: 500;">{{ product }}</p>
+                        <p style="color: rgb(95, 255, 95); margin: 0;" >{{ amount }} g</p>
+                    </li>
+                  {% endfor %}
+                </ul>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p style="color: antiquewhite;">No meals recorded for today.</p>
+    {% endif %}   
+    
+  </ul>
+</div>
+<script > 
+ // Function to set the current day
+ function setCurrentDay(year, month, day, object) {
+    currentYear = year;
+    currentMonthIndex = month;
+    currentDay = day;
+
+    // Update the calendar grid
+
+    // Update the displayed current day
+    document.querySelector('.calendar__day-number--current').classList.remove('calendar__day-number--current');
+    object.classList.add('calendar__day-number--current');
+    addDay(currentYear, currentMonthIndex + 1, currentDay);
+
+    updateCalendarGrid();
+
+  }
+  // month abbreviations
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  // get current date values
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let currentMonth = currentDate.getMonth();
+  let currentDay = currentDate.getDate();
+
+  let currentMonthIndex = currentDate.getMonth(); // Initialize current month index
+  
+  function nextMonth() {
+    currentMonthIndex = (currentMonthIndex + 1) % 12; // Increment month index
+    if (currentMonthIndex === 0) {
+      currentYear++; // Increment year when transitioning to January
+    }
+    
+    document.querySelector('.calendar__month').innerText = months[currentMonthIndex]; // Update month text
+    document.querySelector('.calendar__year').innerText = currentYear; // Update year text
+    updateCalendarGrid();
+  }
+  function previousMonth() {
+    currentMonthIndex = (currentMonthIndex - 1 + 12) % 12; // Decrement month index
+    if (currentMonthIndex === 11) {
+      currentYear--; // Decrement year when transitioning to December
+    }
+    document.querySelector('.calendar__month').innerText = months[currentMonthIndex]; // Update month text
+    document.querySelector('.calendar__year').innerText = currentYear; // Update year text
+    updateCalendarGrid(); // Update calendar grid for the new month
+  }
+  // Adjusted updateCalendarGrid function
+  function updateCalendarGrid() {
+    // Clear existing calendar grid
+    document.querySelector('.calendar__month').innerText = months[currentMonthIndex]; // Update month text
+    document.querySelector('.calendar__year').innerText = currentYear; // Update year text
+
+    document.querySelector('.calendar__day-numbers').innerHTML = '';
+
+    // Get the number of days in the current month
+    const daysInMonth = new Date(currentYear, currentMonthIndex + 1, 0).getDate();
+    let week = document.createElement('div');
+    week.classList.add('calendar__day-numbers-row');
+
+    // Generate new grid of days for the current month
+    for (let i = 1; i <= daysInMonth; i++) {
+      let day = document.createElement('button');
+      day.classList.add('calendar__day-number');
+      day.innerText = i;
+      if (i === currentDay && currentMonthIndex === currentMonth) {
+        day.classList.add('calendar__day-number--current');
+      }
+      day.onclick = function() {
+        setCurrentDay(currentYear, currentMonthIndex, i, day);
+
+        addDay(currentYear, currentMonthIndex + 1, currentDay);
+        console.log(currentYear, currentMonthIndex, currentDay);
+
+      };
+      week.append(day);
+
+      if (new Date(currentYear, currentMonthIndex, i).getDay() === 6 || i === daysInMonth) {
+        document.querySelector('.calendar__day-numbers').append(week);
+
+        if (i !== daysInMonth) {
+          week = document.createElement('div');
+          week.classList.add('calendar__day-numbers-row');
+        }
+      }
+    }
+  }
+  updateCalendarGrid()
+
+  // Call updateCalendarGrid to initialize calendar
+  // updateCalendarGrid();
+
+</script>
+
+
+
+{% endblock %}

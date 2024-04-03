@@ -36,7 +36,10 @@ def home():
             nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
         if existing_meals: 
             for meal in existing_meals:
-                nutrition_list.append(meal.calculate_total_nutrition())
+                if meal.calculate_total_nutrition():
+                    nutrition_list.append(meal.calculate_total_nutrition())
+                else:
+                    nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
         print(nutrition_list)
     except Exception as e:
         flash('Error occurred while retrieving data: {}'.format(str(e)), 'error')

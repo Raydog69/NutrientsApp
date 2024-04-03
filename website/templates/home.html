@@ -165,10 +165,20 @@
 
   // get current date values
   let currentDate = new Date();
-  let currentYear = currentDate.getFullYear();
-  let currentMonth = currentDate.getMonth();
+  var currentMonthIndex = localStorage.getItem("month");
+  if (!currentMonthIndex) {
+    let currentMonthIndex = currentDate.getMonth(); // Initialize current month index
+  }
+  var selectedMonthIndex = currentMonthIndex;
 
-  var selectedDay = localStorage.getItem("someVarKey");
+  
+  var currentYear = localStorage.getItem("year");
+  if (!currentYear) {
+    let currentYear = currentDate.getFullYear();
+  }
+  var selectedYear = currentYear
+
+  var selectedDay = localStorage.getItem("selectedDay");
 
   if (!selectedDay) {
     let selectedDay = currentDate.getDate();
@@ -177,7 +187,6 @@
   console.log(selectedDay)
 
 
-  let currentMonthIndex = currentDate.getMonth(); // Initialize current month index
 
 
   function nextMonth() {
@@ -218,14 +227,17 @@
       let day = document.createElement('button');
       day.classList.add('calendar__day-number');
       day.innerText = i;
-      if (i.toString() === selectedDay) {
+      if (i.toString() === selectedDay && currentMonthIndex === selectedMonthIndex && currentYear === selectedYear) {
         day.classList.add('calendar__day-number--current');
       };
 
 
       day.onclick = function() {
         setselectedDay(currentYear, currentMonthIndex, i, day);
-        localStorage.setItem("someVarKey", selectedDay);
+        localStorage.setItem("selectedDay", selectedDay);
+        localStorage.setItem("month", currentMonthIndex);
+        localStorage.setItem("year", currentYear);
+
         addDay(currentYear, currentMonthIndex + 1, i);
       };
       

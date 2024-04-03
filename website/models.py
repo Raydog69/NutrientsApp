@@ -32,7 +32,7 @@ class Meal(db.Model):
             if product in products_dic:
                 concentration = products_dic[product]["nutrition"]
                 for nutrient, concentration_value in concentration.items():
-                    total_nutrition[nutrient] += (amount / 100) * concentration_value
+                    total_nutrition[nutrient] += int((amount / 100) * concentration_value)
         return total_nutrition
 
 class Day(db.Model):
@@ -52,3 +52,5 @@ class User(db.Model, UserMixin):
 
 class SelectedDayId(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+

@@ -25,7 +25,7 @@ class Meal(db.Model):
 
     def calculate_total_nutrition(self):
         if not self._meal:
-            return None  # No meal data, return None or appropriate default value
+            return None
         products_dic = loadJSON("products.json")
         total_nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
         for (product, amount) in self.meal.items():

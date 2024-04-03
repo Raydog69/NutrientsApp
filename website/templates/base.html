@@ -90,7 +90,7 @@
       function addProduct(mealTime) {
         fetch("/add-product", {
           method: "POST",
-          body: JSON.stringify({mealTime: mealTime}),
+          body: x,
         }).then((_res) => {
           window.location.href = "/add-product";
         });

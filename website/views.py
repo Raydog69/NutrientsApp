@@ -19,6 +19,12 @@ def loadJSON(file_path):
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    if request.method == 'POST':
+        # Retrieve the value of the pressed button
+        mealTime = request.form.get('button')
+        print(mealTime)
+        # Redirect to add-product route with the button information
+        return redirect(url_for('views.add_product', mealTime = mealTime))
     # User.query.delete()
     # Day.query.delete()
     # Meal.query.delete()
@@ -48,9 +54,10 @@ def home():
     return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list)
 
 @views.route('/add-product', methods=['GET', 'POST'])
-def sign_up():
-   
-    return render_template("add_product.html", user=current_user)
+def add_product():
+    mealTime = request.args.get('mealTime')
+
+    return render_template("add_product.html", user=current_user, mealTime=mealTime)
 
 @views.route("/add-meal", methods=['POST'])
 def add_meal():

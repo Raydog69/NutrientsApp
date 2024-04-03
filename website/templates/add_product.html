@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
 <form method="POST" action="/add-meal">
-    <h3 align="center" style="color: antiquewhite;">Add meal</h3>
+    <h3 align="center" style="color: antiquewhite;">{{ mealTime }}</h3>
     <div class="form-group">
       <label for="mealTime">Meal Time</label>
       <input
@@ -10,7 +10,7 @@
         id="mealTime"
         name="mealTime"
         placeholder="Enter meal time"
-        value="{{ mealTime }}"
+        value=""
 
       />
     </div>
@@ -37,5 +37,4 @@
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-
 {% endblock %}

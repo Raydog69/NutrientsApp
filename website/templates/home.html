@@ -64,14 +64,21 @@
 }
 </style>
     
-<h1 align="center" style="color: antiquewhite;">{{current_day}}</h1>
-<h3 align="center">March</h3>
+<h1 align="center" style="color: antiquewhite;"></h1>
+<h3 align="center"></h3>
 
 
 
-   
+<div style="background-color: rgb(54, 54, 54); padding-left: 10px; padding-right: 10px; padding-top:10px; border-radius: 20px; margin-bottom: 20px;">
+  <div>
+    <p id="displayDate" style="color: white;"></p>
+  </div>
+  <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#top-calender" aria-expanded="false" aria-controls="top-calender">
+    v
+  </button>
+</div>
 
-<div class="calendar">
+<div class="calendar collapse" id="top-calender">
   <header class="calendar__header">
     <button onclick="previousMonth()">Previous Month</button>
     <div class="calendar__month"></div>
@@ -110,10 +117,12 @@
               <h1 style="color: antiquewhite; ">{{ meal_types[loop.index - 1] }}</h1>
                 <div style="display: flex; flex-direction: row; justify-content: right; align-items: center; width: 25%; align-items: center;">
                   <h4 style="color: antiquewhite; margin-right: 10%; font-size: smaller; width: 20%;">{{ nutrition_list[loop.index - 1]["kcal"] }} kalorier</h4>
-                  <button class="btn btn-secondary" type="button" onclick="addProduct({{loop.index - 1}})">
-                    <a class="nav-item nav-link" id="add_product" >+</a>
+                  <form action="/" method="post">
+                    <button class="btn btn-secondary" name="button" type="submit" value="{{loop.index - 1}}">
+                      <a class="nav-item nav-link" id="add_product" >+</a>
 
-                  </button>
+                    </button>
+                  </form>
                 </div>
             </div>
           </div>
@@ -128,7 +137,7 @@
                   v
                 </button>
             </div>
-            <div id="collapseExample{{loop.index}}">
+            <div id="collapseExample{{loop.index}}" class="collapse">
               <br>
               <hr style="color: white; margin: 0;">
 
@@ -165,26 +174,29 @@
 
   // get current date values
   let currentDate = new Date();
-  var currentMonthIndex = localStorage.getItem("month");
-  if (!currentMonthIndex) {
-    let currentMonthIndex = currentDate.getMonth(); // Initialize current month index
+  
+  if (localStorage.getItem("month") === null) {
+    currentMonthIndex = currentDate.getMonth();
+  }
+  else {
+    currentMonthIndex = localStorage.getItem("month")
+
   }
   var selectedMonthIndex = currentMonthIndex;
 
-  
-  var currentYear = localStorage.getItem("year");
-  if (!currentYear) {
-    let currentYear = currentDate.getFullYear();
+  if (localStorage.getItem("year") === null) {
+    currentYear = currentDate.getFullYear();
+  }
+  else {
+    currentYear = localStorage.getItem("year")
   }
   var selectedYear = currentYear
 
   var selectedDay = localStorage.getItem("selectedDay");
 
   if (!selectedDay) {
-    let selectedDay = currentDate.getDate();
-    console.log("Yup")
+    selectedDay = currentDate.getDate();
   }
-  console.log(selectedDay)
 
 
 
@@ -213,6 +225,7 @@
     // Clear existing calendar grid
     document.querySelector('.calendar__month').innerText = months[currentMonthIndex]; // Update month text
     document.querySelector('.calendar__year').innerText = currentYear; // Update year text
+    document.querySelector('#displayDate').innerText = selectedDay + ". " + months[currentMonthIndex].toString() + ", " + currentYear.toString();
 
     document.querySelector('.calendar__day-numbers').innerHTML = '';
 

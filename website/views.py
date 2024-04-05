@@ -7,6 +7,7 @@ from .models import SelectedDayId
 from . import db
 import json
 from datetime import datetime
+import sqlite3
 
 views = Blueprint('views', __name__)
 
@@ -15,6 +16,16 @@ def loadJSON(file_path):
         file_contents = json_file.read()
     dict = json.loads(file_contents)
     return dict
+
+
+
+def getusers(search):
+  conn = sqlite3.connect("database.db")
+  cursor = conn.cursor()
+  cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+  results = cursor.fetchall()
+  conn.close()
+  return results
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
@@ -56,8 +67,12 @@ def home():
 @views.route('/add-product', methods=['GET', 'POST'])
 def add_product():
     mealTime = request.args.get('mealTime')
-
-    return render_template("add_product.html", user=current_user, mealTime=mealTime)
+    if request.method == "POST":
+        data = dict(request.form)
+        users = getusers(data["search"])
+        return render_template("add_product.html", user=current_user, mealTime=mealTime, data = users)
+    else:
+        return render_template("add_product.html", user=current_user, mealTime=mealTime)
 
 @views.route("/add-meal", methods=['POST'])
 def add_meal():

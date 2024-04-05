@@ -3,6 +3,27 @@
 {% set meals = ["Breakfast", "Lunch", "Dinner"] %}
 {% set mealTime = mealTime | int %}
 
+<!-- (A) SEARCH FORM -->
+<form method="POST">
+  <input type="text" name="search" required>
+  <input type="submit" value="Search">
+</form>
+ 
+<!-- (B) OUTPUT SEARCH RESULTS -->
+{% if users | length != 0 %}
+<table id="demo">
+  {% for u in users %}
+  <tr>
+    <td>{{ u[0] }}</td>
+    <td>{{ u[1] }}</td>
+    <td>{{ u[2] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<div id="demo">No search results.</div>
+{% endif %}
+
 <form method="POST" action="/add-meal">
     <h3 align="center" style="color: antiquewhite;">{{ meals[mealTime] }}</h3>
     <div class="form-group" style="display: none;">

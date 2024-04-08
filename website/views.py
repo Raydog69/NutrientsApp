@@ -1,13 +1,12 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Day
-from .models import Meal
-from .models import User
-from .models import SelectedDayId
+from .models import Day, Meal, User, Product, SelectedDayId
 from . import db
 import json
 from datetime import datetime
 import sqlite3
+from sqlalchemy import inspect
+
 
 views = Blueprint('views', __name__)
 
@@ -18,27 +17,15 @@ def loadJSON(file_path):
     return dict
 
 
-
-def getusers(search):
-  conn = sqlite3.connect("database.db")
-  cursor = conn.cursor()
-  cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-  results = cursor.fetchall()
-  conn.close()
-  return results
-
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST':
-        # Retrieve the value of the pressed button
         mealTime = request.form.get('button')
         print(mealTime)
-        # Redirect to add-product route with the button information
+
         return redirect(url_for('views.add_product', mealTime = mealTime))
-    # User.query.delete()
-    # Day.query.delete()
-    # Meal.query.delete()
+
     try:
         selectedDayId = SelectedDayId.query.first().id
         current_day = Day.query.get(selectedDayId) if selectedDayId else None
@@ -69,7 +56,7 @@ def add_product():
     mealTime = request.args.get('mealTime')
     if request.method == "POST":
         data = dict(request.form)
-        users = getusers(data["search"])
+        users = getproducts(data["search"])
         return render_template("add_product.html", user=current_user, mealTime=mealTime, data = users)
     else:
         return render_template("add_product.html", user=current_user, mealTime=mealTime)

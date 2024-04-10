@@ -81,10 +81,9 @@ def scrape():
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    Product.query.delete()
-    # scrape()
-    print(Product.query.all())
-    db.session.commit()
+    # Product.query.delete()
+    # print(Product.query.all())
+    # db.session.commit()
 
 
 

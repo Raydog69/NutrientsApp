@@ -143,12 +143,12 @@
 
                 <ul class="list-group">
                   {% if meal.products %}
-                  {% for (product, amount) in meal.products.items() %}
-                    <li class="list-group-item" style="border-bottom: 1px rgb(100, 100, 100) solid; color: antiquewhite; background-color: rgb(54, 54, 54);">
-                        <p style="margin: 0; font-weight: 500;">{{ product }}</p>
-                        <p style="color: rgb(95, 255, 95); margin: 0;" >{{ amount }} g</p>
-                    </li>
-                  {% endfor %}
+                    {% for (product, amount) in meal.products.items() %}
+                      <li class="list-group-item" style="border-bottom: 1px rgb(100, 100, 100) solid; color: antiquewhite; background-color: rgb(54, 54, 54);">
+                          <p style="margin: 0; font-weight: 500;">{{ productNames[product] }}</p>
+                          <p style="color: rgb(95, 255, 95); margin: 0;" >{{ amount }} g</p>
+                      </li>
+                    {% endfor %}
                   {% endif %}
                 </ul>
             </div>

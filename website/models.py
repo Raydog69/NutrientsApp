@@ -25,14 +25,15 @@ class Product(db.Model):
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'))
-    products = db.Column(db.JSON)
+    products = db.Column(db.PickleType)
 
     def get_nutrition(self):
         nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
-        for product in self.products:
-            for (key, item) in product.get_nutrition():
-                nutrition[key] += item
+        for (id, amount) in self.products.items():
+            for (key, item) in Product.query.get(id).get_nutrition().items():
+                nutrition[key] += item * amount / 100
         return nutrition
+    
 
 class Day(db.Model):
     id = db.Column(db.Integer, primary_key=True)

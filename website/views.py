@@ -83,10 +83,10 @@ def scrape():
 def home():
     # Product.query.delete()
     # print(Product.query.all())
+    # scrape()
     # db.session.commit()
 
     nutrition_list = []
-
 
     if request.method == 'POST':
         mealTime = request.form.get('button')
@@ -101,9 +101,10 @@ def home():
         current_user.selected_day = new_day.id
     
     current_day = Day.query.get(current_user.selected_day) if current_user.selected_day else None
-    
 
     existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
+    productNames = {}
+
     if not existing_meals:
         for i in range(3):
             new_meal = Meal(day_id = current_day.id)
@@ -113,14 +114,15 @@ def home():
     if existing_meals: 
         for meal in existing_meals:
             if meal.products:
-                for product in meal.products:
-                    print(product.get_nutrition())
-                nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
+                for id in meal.products.keys():
+                    productNames[id] = Product.query.get(id).name
+                print(meal.get_nutrition())
+                nutrition_list.append(meal.get_nutrition())
             else:
                 nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
     print(nutrition_list)
 
-    return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list)
+    return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list, productNames = productNames)
 
 @views.route('/add-product', methods=['GET', 'POST'])
 def add_product():
@@ -135,7 +137,7 @@ def add_product():
 @views.route("/add-meal", methods=['POST'])
 def add_meal():
     mealTime = request.form.get('mealTime')
-    product = request.form.get('product')
+    product_id = request.form.get('product')
     amount = request.form.get('amount')
     
     selectedDayId = current_user.selected_day
@@ -143,21 +145,24 @@ def add_meal():
     
     if not current_day:
         flash('No current day', category='error')
-    elif not all([mealTime, product, amount]):
+    elif not all([mealTime, product_id, amount]):
         flash('Missing information', category='error')
     else:
         try:
             amount = int(amount)
             mealTime = int(mealTime)
-            product = int(product)
+            product_id = int(product_id)
             
-            existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
-            products_dict = existing_meals[mealTime].products
-            # print(products_dict)
-            for product in products_dict:
-                products_dict[product] += amount
+            meal = Meal.query.filter_by(day_id=current_day.id).all()[mealTime]
+            
+            products_dict = meal.products
+            if not products_dict:
+                products_dict = {}
 
-            existing_meals[mealTime].products = products_dict
+            products_dict[product_id] = products_dict.get(product_id, 0) + amount
+
+            meal.products = products_dict
+            print(products_dict)
             db.session.commit()
             
             flash('Meal added successfully', category='success')

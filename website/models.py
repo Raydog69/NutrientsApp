@@ -16,40 +16,27 @@ class Product(db.Model):
     kcal = db.Column(db.Float)
     protein = db.Column(db.Float)
     fat = db.Column(db.Float)
-    carbs = db.Column(db.Float)
-    # https://www.youtube.com/watch?v=dCym9EICKGQ
-    
+    carbs = db.Column(db.Float) 
 
+    def get_nutrition(self):
+        return {"kcal": self.kcal, "protein": self.protein, "fat": self.fat, "carbs": self.carbs}
 
 
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    _meal = db.Column('meal', db.String(255))
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'))
+    products = db.Column(db.JSON)
 
-    @property
-    def meal(self):
-        return json.loads(self._meal) if self._meal else {}
-
-    @meal.setter
-    def meal(self, value):
-        self._meal = json.dumps(value) if value else None
-
-    def calculate_total_nutrition(self):
-        if not self._meal:
-            return None  # No meal data, return None or appropriate default value
-        products_dic = loadJSON("products.json")
-        total_nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
-        for (product, amount) in self.meal.items():
-            if product in products_dic:
-                concentration = products_dic[product]["nutrition"]
-                for nutrient, concentration_value in concentration.items():
-                    total_nutrition[nutrient] += int((amount / 100) * concentration_value)
-        return total_nutrition
+    def get_nutrition(self):
+        nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
+        for product in self.products:
+            for (key, item) in product.get_nutrition():
+                nutrition[key] += item
+        return nutrition
 
 class Day(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String(255), unique=True)
+    date = db.Column(db.String(255))
     meals = db.relationship('Meal')
     # water = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -61,8 +48,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     days = db.relationship('Day')
-
-class SelectedDayId(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-
-
+    selected_day = db.Column(db.Integer)

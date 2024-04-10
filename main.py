@@ -1,5 +1,4 @@
 from website import create_app, db
-from website.models import Product
 
 app = create_app()
 

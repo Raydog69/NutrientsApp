@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Day, Meal, User, Product, SelectedDayId
+from .models import Day, Meal, User, Product
 from . import db
 import json
 from datetime import datetime
@@ -85,7 +85,7 @@ def home():
     # print(Product.query.all())
     # db.session.commit()
 
-
+    nutrition_list = []
 
 
     if request.method == 'POST':
@@ -93,29 +93,32 @@ def home():
         print(mealTime)
 
         return redirect(url_for('views.add_product', mealTime = mealTime))
+    
+    if not current_user.selected_day:
+        new_day = Day(date = datetime.now().strftime('%Y-%m-%d'), user_id = current_user.id)
+        db.session.add(new_day)
+        db.session.commit()
+        current_user.selected_day = new_day.id
+    
+    current_day = Day.query.get(current_user.selected_day) if current_user.selected_day else None
+    
 
-    try:
-        selectedDayId = SelectedDayId.query.first().id
-        current_day = Day.query.get(selectedDayId) if selectedDayId else None
-        nutrition_list = []
-
-        existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
-        if not existing_meals:
-            for i in range(3):
-                new_meal = Meal(day_id = current_day.id)
-                db.session.add(new_meal)
-                db.session.commit()
-            nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
-        if existing_meals: 
-            for meal in existing_meals:
-                if meal.calculate_total_nutrition():
-                    nutrition_list.append(meal.calculate_total_nutrition())
-                else:
-                    nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
-        print(nutrition_list)
-    except Exception as e:
-        flash('Error occurred while retrieving data: {}'.format(str(e)), 'error')
-        current_day = None
+    existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
+    if not existing_meals:
+        for i in range(3):
+            new_meal = Meal(day_id = current_day.id)
+            db.session.add(new_meal)
+            db.session.commit()
+        nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
+    if existing_meals: 
+        for meal in existing_meals:
+            if meal.products:
+                for product in meal.products:
+                    print(product.get_nutrition())
+                nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
+            else:
+                nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
+    print(nutrition_list)
 
     return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list)
 
@@ -135,7 +138,7 @@ def add_meal():
     product = request.form.get('product')
     amount = request.form.get('amount')
     
-    selectedDayId = SelectedDayId.query.first().id
+    selectedDayId = current_user.selected_day
     current_day = Day.query.get(selectedDayId) if selectedDayId else None
     
     if not current_day:
@@ -146,21 +149,17 @@ def add_meal():
         try:
             amount = int(amount)
             mealTime = int(mealTime)
+            product = int(product)
             
             existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
-            new_meal_data = existing_meals[mealTime].meal
-            db.session.delete(existing_meals[mealTime])
+            products_dict = existing_meals[mealTime].products
+            # print(products_dict)
+            for product in products_dict:
+                products_dict[product] += amount
 
-            if product in new_meal_data:
-                new_meal_data[product] += amount
-            else:
-                new_meal_data[product] = amount
-
-            existing_meals[mealTime].meal = new_meal_data
-            db.session.add(existing_meals[mealTime])
+            existing_meals[mealTime].products = products_dict
             db.session.commit()
             
-
             flash('Meal added successfully', category='success')
         except (IndexError, ValueError) as e:
             flash('Invalid meal time or amount', category='error')
@@ -180,34 +179,16 @@ def add_day():
     day = Day.query.filter(Day.date == date, Day.user_id == current_user.id).first()
 
     if day:
-        selectedDayId = SelectedDayId.query.first()
-        if not selectedDayId:
-            selectedDayId = selectedDayId(id = day.id)
-            db.session.add(selectedDayId)
-            db.session.commit()
+        current_user.selected_day = day.id
 
-        else:
-            selectedDayId.id = day.id
-
-            db.session.commit()
+        db.session.commit()
 
     else:
 
         print("Day added")
         new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
         db.session.add(new_day) #adding the note to the database 
+        current_user.selected_day = new_day.id
         db.session.commit()
-        
-        selectedDayId = SelectedDayId.query.first()
-        if not selectedDayId:
-            selectedDayId = selectedDayId(id = new_day.id)
-            db.session.add(selectedDayId)
-            db.session.commit()
-
-        else:
-            selectedDayId.id = new_day.id
-
-            db.session.commit()
-
     return jsonify({})
 

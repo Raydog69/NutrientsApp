@@ -10,6 +10,18 @@ def loadJSON(file_path):
     dict = json.loads(file_contents)
     return dict
 
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(150))
+    kcal = db.Column(db.Float)
+    protein = db.Column(db.Float)
+    fat = db.Column(db.Float)
+    carbs = db.Column(db.Float)
+    # https://www.youtube.com/watch?v=dCym9EICKGQ
+    
+
+
+
 class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _meal = db.Column('meal', db.String(255))

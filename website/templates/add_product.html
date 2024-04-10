@@ -10,13 +10,11 @@
 </form>
  
 <!-- (B) OUTPUT SEARCH RESULTS -->
-{% if users | length != 0 %}
+{% if products | length != 0 %}
 <table id="demo">
-  {% for u in users %}
+  {% for p in products %}
   <tr>
-    <td>{{ u[0] }}</td>
-    <td>{{ u[1] }}</td>
-    <td>{{ u[2] }}</td>
+    <td>{{ p }}</td>
   </tr>
   {% endfor %}
 </table>

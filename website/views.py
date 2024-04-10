@@ -1,13 +1,12 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Day
-from .models import Meal
-from .models import User
-from .models import SelectedDayId
+from .models import Day, Meal, User, Product, SelectedDayId
 from . import db
 import json
 from datetime import datetime
 import sqlite3
+from sqlalchemy import inspect
+
 
 views = Blueprint('views', __name__)
 
@@ -17,28 +16,84 @@ def loadJSON(file_path):
     dict = json.loads(file_contents)
     return dict
 
+def scrape():
+    data = loadJSON("website/foods.json")
+    foods = data["foods"]
+
+    for food in foods:
+        constituents_dict = {} #Dict
+        constituents_list = food["constituents"] #List
 
 
-def getusers(search):
-  conn = sqlite3.connect("database.db")
-  cursor = conn.cursor()
-  cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-  results = cursor.fetchall()
-  conn.close()
-  return results
+        for con in constituents_list:
+            try:
+                if con["unit"] == "mg":
+                    quantity = con["quantity"] / 1000
+                elif con["unit"] == 'µg':
+                    quantity = con["quantity"] / 1000000
+                else:
+                    quantity = con["quantity"]
+                constituents_dict[con["nutrientId"]] = quantity
+            except:
+                constituents_dict[con["nutrientId"]] = 0
+
+
+
+        flerum = constituents_dict["Flerum"] #Float
+        stivel = constituents_dict["Stivel"] #Float
+        alko = constituents_dict["Alko"] #Float
+        niacin = constituents_dict['Niacin'] #Float
+        vitE = constituents_dict['Vit E'] #Float
+        vitB1 = constituents_dict["Vit B1"] #Float
+        vitB12 = constituents_dict['Vit B12'] #Float
+        vitA = constituents_dict["Vit A"] #Float
+        vitD = constituents_dict["Vit D"] #Float
+        vitB2 = constituents_dict["Vit B2"] #Float
+        vitB6 = constituents_dict["Vit B6"] #Float
+        vitC = constituents_dict["Vit C"] #Float
+        fiber = constituents_dict["Fiber"] #Float
+        retinol = constituents_dict["Retinol"] #Float
+        fiber = constituents_dict["Fiber"] #Float
+        omega6 = constituents_dict["Omega-6"] #Float
+        vann = constituents_dict['Vann'] #Float
+        
+        protein = constituents_dict['Protein'] #Float
+        fat = constituents_dict["Fett"] #Float
+        carbs = constituents_dict["Karbo"] #Float
+        sukker = constituents_dict['Sukker'] #Float
+
+        kcal = food["calories"]["quantity"] #Float
+        # kj = food["energy"]["quantity"] #Float
+        portions = food["portions"] #List
+        name = food["foodName"] #String
+
+        new_product = Product(name = name, kcal = kcal, protein = protein, fat = fat, carbs = carbs)
+        try:
+            db.session.add(new_product)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error occurred: {e}")
+
+    print(foods[0]["constituents"])
+
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    # Product.query.delete()
+    # scrape()
+    db.session.commit()
+
+
+
+
     if request.method == 'POST':
-        # Retrieve the value of the pressed button
         mealTime = request.form.get('button')
         print(mealTime)
-        # Redirect to add-product route with the button information
+
         return redirect(url_for('views.add_product', mealTime = mealTime))
-    # User.query.delete()
-    # Day.query.delete()
-    # Meal.query.delete()
+
     try:
         selectedDayId = SelectedDayId.query.first().id
         current_day = Day.query.get(selectedDayId) if selectedDayId else None
@@ -69,7 +124,7 @@ def add_product():
     mealTime = request.args.get('mealTime')
     if request.method == "POST":
         data = dict(request.form)
-        users = getusers(data["search"])
+        users = getproducts(data["search"])
         return render_template("add_product.html", user=current_user, mealTime=mealTime, data = users)
     else:
         return render_template("add_product.html", user=current_user, mealTime=mealTime)

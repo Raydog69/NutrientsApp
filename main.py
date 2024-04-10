@@ -14,5 +14,5 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(app.testing, result)
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
     app.run(debug=True)

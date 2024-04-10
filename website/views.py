@@ -75,14 +75,15 @@ def scrape():
             db.session.rollback()
             print(f"Error occurred: {e}")
 
-    print(foods[0]["constituents"])
+    # print(foods[0]["constituents"])
 
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    # Product.query.delete()
+    Product.query.delete()
     # scrape()
+    print(Product.query.all())
     db.session.commit()
 
 

@@ -110,13 +110,13 @@
           <p style="color: antiquewhite;"> fat </p>
           <p style="color: antiquewhite;"> carbs </p>
         </div>
-        {% for meal in current_day.meals %}
+        {% for meal in existing_meals %}
         <div style="background-color: rgb(54, 54, 54); padding-left:10px; padding-right:10px;padding-top:10px; border-radius: 20px; margin-bottom: 20px;">
           <div style="background-color: rgb(54, 54, 54); border-top-left-radius: 20px; border-top-right-radius: 20px;">
             <div class="d-inline-flex gap-1" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%;">
-              <h1 style="color: antiquewhite; ">{{ meal_types[loop.index - 1] }}</h1>
+              <h1 style="color: antiquewhite; ">{{ meal_types[meal.mealTime] }}</h1>
                 <div style="display: flex; flex-direction: row; justify-content: right; align-items: center; width: 25%; align-items: center;">
-                  <h4 style="color: antiquewhite; margin-right: 10%; font-size: smaller; width: 20%;">{{ nutrition_list[loop.index - 1]["kcal"] }} kalorier</h4>
+                  <h4 style="color: antiquewhite; margin-right: 10%; font-size: smaller; width: 20%;">{{ nutrition_list[meal.mealTime]["kcal"] }} kalorier</h4>
                   <form action="/" method="post">
                     <button class="btn btn-secondary" name="button" type="submit" value="{{loop.index - 1}}">
                       <a class="nav-item nav-link" id="add_product" >+</a>
@@ -129,9 +129,9 @@
           <div style="margin-bottom: 20px; ">
             <div  id="parentDiv{{loop.index}}" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; background-color: rgb(54, 54, 54);" >
                 <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 25%;">
-                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["protein"] }} </p>
-                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["fat"] }} </p>
-                  <p style="color: antiquewhite;"> {{ nutrition_list[loop.index - 1]["carbs"] }} </p>
+                  <p style="color: antiquewhite;"> {{ (nutrition_list[meal.mealTime]["protein"]) }} </p>
+                  <p style="color: antiquewhite;"> {{ nutrition_list[meal.mealTime]["fat"] }} </p>
+                  <p style="color: antiquewhite;"> {{ nutrition_list[meal.mealTime]["carbs"] }} </p>
                 </div>
                 <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{loop.index}}" aria-expanded="false" aria-controls="collapseExample">
                   v

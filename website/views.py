@@ -77,6 +77,9 @@ def scrape():
 
     # print(foods[0]["constituents"])
 
+def getproducts(search):
+    results = Product.query.filter(Product.name.like(f'%{search}%')).all()
+    return results
 
 @views.route('/', methods=['GET', 'POST'])
 @login_required
@@ -107,32 +110,41 @@ def home():
 
     if not existing_meals:
         for i in range(3):
-            new_meal = Meal(day_id = current_day.id)
+            new_meal = Meal(day_id = current_day.id, mealTime = i)
             db.session.add(new_meal)
             db.session.commit()
         nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
-    if existing_meals: 
+    if existing_meals:
+        existing_meals = sorted(existing_meals, key=lambda x: x.mealTime)
+        print([meal.mealTime for meal in existing_meals])
         for meal in existing_meals:
             if meal.products:
                 for id in meal.products.keys():
                     productNames[id] = Product.query.get(id).name
-                print(meal.get_nutrition())
+                # print(meal.get_nutrition())
                 nutrition_list.append(meal.get_nutrition())
             else:
                 nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
     print(nutrition_list)
 
-    return render_template("home.html", user=current_user, current_day=current_day, nutrition_list=nutrition_list, productNames = productNames)
+    return render_template("home.html", existing_meals=existing_meals, user=current_user, current_day=current_day, nutrition_list=nutrition_list, productNames = productNames)
+
+@views.route('/search', methods=['GET', 'POST'])
+def find_product():
+    if request.method == "POST":
+        data = dict(request.form)
+        search = data["search"]
+        products = getproducts(search)
+        print(products)
+
+        return render_template("search.html", user=current_user, data = products)
+    else:
+        return render_template("search.html", user=current_user, data = None)
 
 @views.route('/add-product', methods=['GET', 'POST'])
 def add_product():
     mealTime = request.args.get('mealTime')
-    if request.method == "POST":
-        data = dict(request.form)
-        users = getproducts(data["search"])
-        return render_template("add_product.html", user=current_user, mealTime=mealTime, data = users)
-    else:
-        return render_template("add_product.html", user=current_user, mealTime=mealTime)
+    return render_template("add_product.html", user=current_user, mealTime=mealTime)
 
 @views.route("/add-meal", methods=['POST'])
 def add_meal():
@@ -153,17 +165,21 @@ def add_meal():
             mealTime = int(mealTime)
             product_id = int(product_id)
             
-            meal = Meal.query.filter_by(day_id=current_day.id).all()[mealTime]
+            meal = Meal.query.filter_by(day_id=current_day.id, mealTime = mealTime).first()
             
-            products_dict = meal.products
-            if not products_dict:
-                products_dict = {}
-
+            products_dict = meal.products or {}
             products_dict[product_id] = products_dict.get(product_id, 0) + amount
+            
+            print(products_dict, "PRINT 1")
 
-            meal.products = products_dict
-            print(products_dict)
+            db.session.delete(meal)
+            meal = Meal(day_id=current_day.id, products = products_dict, mealTime = mealTime) 
+            db.session.add(meal)
+
             db.session.commit()
+ 
+            print(meal.products, "PRINT 2")
+
             
             flash('Meal added successfully', category='success')
         except (IndexError, ValueError) as e:

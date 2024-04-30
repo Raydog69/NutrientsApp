@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+
+<!-- (A) SEARCH FORM -->
+<form method="POST">
+    <input type="text" name="search" required>
+    <input type="submit" value="Search">
+  </form>
+  
+
+<!-- (B) OUTPUT SEARCH RESULTS -->
+{% if data | length != 0 %}
+<table id="demo">
+  {% for p in data %}
+  <tr>
+    <td style="color: white;">{{ p.name }} {{ p.id }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<div id="demo">No search results.</div>
+{% endif %}
+
+
+  {% endblock %}

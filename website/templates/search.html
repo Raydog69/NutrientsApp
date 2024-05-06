@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
     %}
+    {% set meals = ["Breakfast", "Lunch", "Dinner"] %}
+    {% set mealTime = mealTime | int %}
 
 <!-- (A) SEARCH FORM -->
+<h1 style="color: white">{{meals[mealTime]}}</h1>
 <form method="POST">
     <input type="text" name="search" required>
     <input type="submit" value="Search">
@@ -9,17 +12,23 @@
   
 
 <!-- (B) OUTPUT SEARCH RESULTS -->
-{% if data | length != 0 %}
-<table id="demo">
-  {% for p in data %}
-  <tr>
-    <td style="color: white;">{{ p.name }} {{ p.id }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-<div id="demo">No search results.</div>
-{% endif %}
+{% if data %}
+  {% if data | length != 0 %}
+  <table id="demo">
+    {% for p in data %}
+    <tr>
+      <td style="color: white;">
+        <button onclick="addProduct(mealTime = {{mealTime}}, product = {{p.id}})">
+          {{ p.name }} {{ p.id }}
 
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div id="demo">No search results.</div>
+  {% endif %}
+{% endif %}
 
   {% endblock %}

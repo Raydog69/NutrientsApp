@@ -95,7 +95,7 @@ def home():
         mealTime = request.form.get('button')
         print(mealTime)
 
-        return redirect(url_for('views.add_product', mealTime = mealTime))
+        return redirect(url_for('views.search', mealTime = mealTime))
     
     if not current_user.selected_day:
         new_day = Day(date = datetime.now().strftime('%Y-%m-%d'), user_id = current_user.id)
@@ -130,21 +130,21 @@ def home():
     return render_template("home.html", existing_meals=existing_meals, user=current_user, current_day=current_day, nutrition_list=nutrition_list, productNames = productNames)
 
 @views.route('/search', methods=['GET', 'POST'])
-def find_product():
+def search():
+    mealTime = request.args.get('mealTime')
     if request.method == "POST":
         data = dict(request.form)
         search = data["search"]
         products = getproducts(search)
         print(products)
 
-        return render_template("search.html", user=current_user, data = products)
+        return render_template("search.html", user=current_user, data = products, mealTime=mealTime)
     else:
-        return render_template("search.html", user=current_user, data = None)
+        return render_template("search.html", user=current_user, data = None, mealTime=mealTime)
 
 @views.route('/add-product', methods=['GET', 'POST'])
 def add_product():
-    mealTime = request.args.get('mealTime')
-    return render_template("add_product.html", user=current_user, mealTime=mealTime)
+    return render_template("add_product.html", user=current_user)
 
 @views.route("/add-meal", methods=['POST'])
 def add_meal():

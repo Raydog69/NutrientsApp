@@ -87,10 +87,10 @@
           window.location.href = "/";
         });
         }
-      function addProduct(mealTime) {
+      function addProduct(mealTime, product) {
         fetch("/add-product", {
           method: "POST",
-          body: x,
+          body: JSON.stringify({mealTime: mealTime, product: product}),
         }).then((_res) => {
           window.location.href = "/add-product";
         });

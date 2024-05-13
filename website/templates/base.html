@@ -85,6 +85,8 @@
           body: JSON.stringify({year: year, month: month, date: date}),
         }).then((_res) => {
           window.location.href = "/";
+          window.location.reload();
+
         });
         }
       function addProduct(mealTime, product) {
@@ -92,7 +94,7 @@
           method: "POST",
           body: JSON.stringify({mealTime: mealTime, product: product}),
         }).then((_res) => {
-          window.location.href = "/add-product";
+          window.location.href = `/add-product?mealTime=${mealTime}&product=${product}`;
         });
         }
     </script>

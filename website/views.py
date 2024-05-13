@@ -113,6 +113,7 @@ def home():
             new_meal = Meal(day_id = current_day.id, mealTime = i)
             db.session.add(new_meal)
             db.session.commit()
+        existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
         nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
     if existing_meals:
         existing_meals = sorted(existing_meals, key=lambda x: x.mealTime)
@@ -126,8 +127,11 @@ def home():
             else:
                 nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
     print(nutrition_list)
-
-    return render_template("home.html", existing_meals=existing_meals, user=current_user, current_day=current_day, nutrition_list=nutrition_list, productNames = productNames)
+    total_nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
+    for nutrition in nutrition_list:
+        for key, value in nutrition.items():
+            total_nutrition[key] += value
+    return render_template("home.html", existing_meals=existing_meals, user=current_user, current_day=current_day, nutrition_list=nutrition_list, total_nutrition=total_nutrition, productNames = productNames)
 
 @views.route('/search', methods=['GET', 'POST'])
 def search():
@@ -144,7 +148,10 @@ def search():
 
 @views.route('/add-product', methods=['GET', 'POST'])
 def add_product():
-    return render_template("add_product.html", user=current_user)
+    mealTime = int(request.args.get('mealTime'))
+    product = int(request.args.get('product'))
+    
+    return render_template("add_product.html", user=current_user, mealTime=mealTime, product=product, productName=Product.query.get(product).name)
 
 @views.route("/add-meal", methods=['POST'])
 def add_meal():

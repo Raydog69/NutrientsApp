@@ -18,9 +18,8 @@
     {% for p in data %}
     <tr>
       <td style="color: white;">
-        <button onclick="addProduct(mealTime = {{mealTime}}, product = {{p.id}})">
-          {{ p.name }} {{ p.id }}
-
+        <button onclick="addProduct(mealTime = {{mealTime}}, product = {{p.id}})" class="btn btn-secondary">
+          {{ p.name }}
         </button>
       </td>
     </tr>

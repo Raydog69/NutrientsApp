@@ -71,16 +71,19 @@
 
 
 
-<div style="background-color: rgb(54, 54, 54); padding-left: 10px; padding-right: 10px; padding-top:10px; border-radius: 20px; margin-bottom: 20px;">
+<div style="display: none;">
   <div>
-    <p id="displayDate" style="color: white;"></p>
+    <p id="displayDate" style="color: white; display: none;"></p>
   </div>
   <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#top-calender" aria-expanded="false" aria-controls="top-calender">
     v
   </button>
 </div>
 
-<div class="calendar collapse" id="top-calender">
+<div style="display: flex; flex-direction: row; justify-content: space-around; margin: 5%;">
+
+<div class="calendar" id="top-calender" style="margin: 0;">
+
   <header class="calendar__header">
     <button onclick="previousMonth()">Previous</button>
     <div class="calendar__month"></div>
@@ -102,13 +105,12 @@
 </div>
 
 
-
-<div>
-  <ul class="list-group list-group-flush" id="notes">
+<div style="width: 40%;">
+  <ul class="list-group list-group-flush" id="notes" >
     {% if current_day %}
         {% set meal_types = ['Breakfast', 'Lunch', 'Dinner'] %}
         <div style="display: flex; flex-direction: row; justify-content: space-between">
-          <div style="display: flex; flex-direction: row; margin-left: 10px; margin-right: 10px; justify-content: space-between; width: 35%;">
+          <div style="display: flex; flex-direction: row; margin-left: 10px; margin-right: 10px; justify-content: space-between; width: 45%;">
             <p style="color: antiquewhite;"> protein </p>
             <p style="color: antiquewhite;"> fat </p>
             <p style="color: antiquewhite;"> carbs </p>
@@ -117,7 +119,7 @@
             <p style="color: antiquewhite;">Kcal</p>
           </div>
         </div>
-        <div style="padding-left: 10px; display: flex; flex-direction: row; margin-left: 10px; margin-right: 10px; justify-content: space-between; width: 35%;">
+        <div style="padding-left: 10px; display: flex; flex-direction: row; margin-left: 10px; margin-right: 10px; justify-content: space-between; width: 45%;">
           <p style="color: antiquewhite;"> {{total_nutrition["protein"]}} </p>
           <p style="color: antiquewhite;"> {{total_nutrition["fat"]}} </p>
           <p style="color: antiquewhite;"> {{total_nutrition["carbs"]}} </p>
@@ -172,6 +174,8 @@
     {% endif %}   
     
   </ul>
+</div>
+
 </div>
 <script > 
 const calendarHeader = document.querySelector('#top-calender');

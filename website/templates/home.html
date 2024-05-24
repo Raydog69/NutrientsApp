@@ -254,7 +254,7 @@ calendarHeader.addEventListener('touchend', function(event) {
 
 
   function nextMonth() {
-    currentMonthIndex = (currentMonthIndex + 1) % 12; // Increment month index
+    currentMonthIndex = (currentMonthIndex + 1 + 12) % 12; // Increment month index
     if (currentMonthIndex === 0) {
       currentYear++; // Increment year when transitioning to January
     }
@@ -287,6 +287,7 @@ calendarHeader.addEventListener('touchend', function(event) {
     week.classList.add('calendar__day-numbers-row');
 
     // Generate new grid of days for the current month
+    console.log(selectedDay, currentMonthIndex, selectedMonthIndex, currentYear, selectedYear)
 
     for (let i = 1; i <= daysInMonth; i++) {
       if (i === 1) {
@@ -309,7 +310,7 @@ calendarHeader.addEventListener('touchend', function(event) {
       let day = document.createElement('button');
       day.classList.add('calendar__day-number');
       day.innerText = i;
-      if (i.toString() === selectedDay && currentMonthIndex === selectedMonthIndex && currentYear === selectedYear) {
+      if (i.toString() === selectedDay && currentMonthIndex.toString() === selectedMonthIndex.toString() && currentYear.toString() === selectedYear.toString()) {
         day.classList.add('calendar__day-number--current');
       };
 
@@ -320,7 +321,7 @@ calendarHeader.addEventListener('touchend', function(event) {
         localStorage.setItem("month", currentMonthIndex);
         localStorage.setItem("year", currentYear);
 
-        addDay(currentYear, currentMonthIndex + 1, i);
+        addDay(currentYear, ((currentMonthIndex % 12) + 1), i);
       };
       
       week.append(day);

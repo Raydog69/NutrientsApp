@@ -93,17 +93,21 @@ def home():
 
     if request.method == 'POST':
         mealTime = request.form.get('button')
-        print(mealTime)
 
         return redirect(url_for('views.search', mealTime = mealTime))
     
     if not current_user.selected_day:
-        new_day = Day(date = datetime.now().strftime('%Y-%m-%d'), user_id = current_user.id)
+        m = int(datetime.now().strftime('%m'))
+        new_day = Day(date = datetime.now().strftime(f'%Y-{m}-%d'), user_id = current_user.id)
         db.session.add(new_day)
         db.session.commit()
         current_user.selected_day = new_day.id
-    
-    current_day = Day.query.get(current_user.selected_day) if current_user.selected_day else None
+        db.session.commit()
+
+    if current_user.selected_day:
+        current_day = Day.query.get(current_user.selected_day) 
+    else:
+        current_day = None
 
     existing_meals = Meal.query.filter(Meal.day_id == current_day.id).all()
     productNames = {}
@@ -117,16 +121,13 @@ def home():
         nutrition_list = [{"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}, {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}]
     if existing_meals:
         existing_meals = sorted(existing_meals, key=lambda x: x.mealTime)
-        print([meal.mealTime for meal in existing_meals])
         for meal in existing_meals:
             if meal.products:
                 for id in meal.products.keys():
                     productNames[id] = Product.query.get(id).name
-                # print(meal.get_nutrition())
                 nutrition_list.append(meal.get_nutrition())
             else:
                 nutrition_list.append({"kcal": 0, "protein": 0, "fat": 0, "carbs": 0})
-    print(nutrition_list)
     total_nutrition = {"kcal": 0, "protein": 0, "fat": 0, "carbs": 0}
     for nutrition in nutrition_list:
         for key, value in nutrition.items():
@@ -140,7 +141,6 @@ def search():
         data = dict(request.form)
         search = data["search"]
         products = getproducts(search)
-        print(products)
 
         return render_template("search.html", user=current_user, data = products, mealTime=mealTime)
     else:
@@ -177,7 +177,6 @@ def add_meal():
             products_dict = meal.products or {}
             products_dict[product_id] = products_dict.get(product_id, 0) + amount
             
-            print(products_dict, "PRINT 1")
 
             db.session.delete(meal)
             meal = Meal(day_id=current_day.id, products = products_dict, mealTime = mealTime) 
@@ -212,10 +211,9 @@ def add_day():
         db.session.commit()
 
     else:
-
-        print("Day added")
         new_day = Day(date=date, user_id=current_user.id)  #providing the schema for the note 
         db.session.add(new_day) #adding the note to the database 
+        db.session.commit()
         current_user.selected_day = new_day.id
         db.session.commit()
     return jsonify({})

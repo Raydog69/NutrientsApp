@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 import sqlite3
 from sqlalchemy import inspect
+import calendar
 
 
 views = Blueprint('views', __name__)
@@ -134,6 +135,58 @@ def home():
             total_nutrition[key] += value
     return render_template("home.html", existing_meals=existing_meals, user=current_user, current_day=current_day, nutrition_list=nutrition_list, total_nutrition=total_nutrition, productNames = productNames)
 
+@views.route('/profile-page', methods=['GET', 'POST'])
+@login_required
+def profile():
+    if request.method == 'POST':
+        current_date = request.form.get('date')
+        weight = request.form.get('weight')
+        current_date = f'{current_date[:4]}-{int(current_date[5:7])}-{int(current_date[8:10])}'
+        if weight != "":
+            weight = float(weight)
+            print(current_date, "what")
+            day = Day.query.filter(Day.user_id==current_user.id, Day.date == current_date).first()
+            if not day:
+                new_day = Day(date=current_date, user_id=current_user.id, weight=weight)
+                db.session.add(new_day)
+                db.session.commit()
+            else:
+                day.weight = weight
+                db.session.commit()
+
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_date = f'{current_date[:4]}-{int(current_date[5:7])}-{int(current_date[8:10])}'
+    print(current_date)
+    year, month, _ = map(int, current_date.split('-'))
+    num_days = calendar.monthrange(year, month)[1]
+
+    # Generate labels for the days throughout the month
+    labels = [str(day) for day in range(1, num_days + 1)]
+    
+    data = []
+    for day in range(1, num_days + 1):
+        current_date = datetime.now().strftime(f'%Y-%m-{day}')
+        current_date = f'{current_date[:4]}-{int(current_date[5:7])}-{int(current_date[8:10])}'
+        current_day = Day.query.filter(Day.user_id==current_user.id, Day.date == current_date).first()
+        if current_day:
+            data.append(current_day.weight)
+        else:
+            data.append(None)
+
+
+    graph_data = {
+        "labels": labels,
+        "datasets": [{
+            "label": "My First dataset",
+            "backgroundColor": "rgba(75, 192, 192, 0.2)",
+            "borderColor": "rgba(75, 192, 192, 1)",
+            "data": data
+        }]
+    }
+    
+    return render_template("profile_page.html", user=current_user, graph_data=json.dumps(graph_data))
+
+
 @views.route('/search', methods=['GET', 'POST'])
 def search():
     mealTime = request.args.get('mealTime')
@@ -194,7 +247,27 @@ def add_meal():
 
     return redirect(url_for('views.home'))
 
+@views.route("/delete-meal", methods=['POST'])
+def delete_meal():
+    dateDic = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
+    mealTime = dateDic["mealTime"]
+    product_id = dateDic['product']
 
+    selectedDayId = current_user.selected_day
+    current_day = Day.query.get(selectedDayId) if selectedDayId else None
+    print(mealTime, product_id, current_day, selectedDayId)
+
+    meal = Meal.query.filter_by(day_id=current_day.id, mealTime = mealTime).first()
+            
+    products_dict = meal.products
+    if meal.products:
+        products_dict.pop(product_id)
+
+        db.session.delete(meal)
+        meal = Meal(day_id=current_day.id, products = products_dict, mealTime = mealTime) 
+        db.session.add(meal)
+
+        db.session.commit()
 
 @views.route('/add-day', methods=['POST'])
 def add_day():

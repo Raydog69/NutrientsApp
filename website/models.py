@@ -40,6 +40,7 @@ class Day(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(255))
     meals = db.relationship('Meal')
+    weight = db.Column(db.Float)
     # water = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

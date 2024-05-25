@@ -1,0 +1,133 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+    %}
+
+<style>
+    .titleText {
+    color: white;
+
+    }
+    .firstBackground {
+        background-color: none;
+        padding: 25px;
+        width: 100vw; /* Full viewport width */
+        margin-left: calc(50% - 50vw); /* Center the element and extend to full width */
+        margin-right: calc(50% - 50vw);
+    }
+    .secondBackground {
+        background-color: rgb(46, 46, 46);
+        padding: 25px;
+        width: 100vw; /* Full viewport width */
+        margin-left: calc(50% - 50vw); /* Center the element and extend to full width */
+        margin-right: calc(50% - 50vw);
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+    }
+    .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        color: white; /* Text color for better readability */
+    }
+    #profileInfo {
+        display: flex;
+        flex-direction: row;
+    }
+    img {
+        border-radius: 50%;
+        margin-right: 10%;
+    }
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        z-index: 999; /* Ensures it sits on top of other elements */
+    }
+
+    /* Style for the form popup */
+    #weightForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+        z-index: 1000; /* Ensures it sits on top of the overlay */
+    }
+    #weightChart {
+        margin: 50px;
+    }
+    .blacktext {
+        color: black;
+    }
+
+</style>
+<div class="firstBackground"></div>
+<div class="secondBackground" id="profileInfo">
+    <div class="content-wrapper">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkr4HamH6evM84k6_hAyVYfJadO6cDUb7PdV-XFY289A&s" alt="">
+        <div id="info">
+            <h1 class="titleText">{{user.first_name}}</h1>
+            <p>{{user.fri}}</p>
+        </div>
+    </div>
+</div>
+<div>
+    <button onclick="toggleWeightForm()">Toggle Weight Form</button>
+</div>
+
+<div class="popup-overlay" onclick="toggleWeightForm()"></div>
+
+<div id="weightForm">
+    <form method="POST" action="/profile-page">
+        <!-- Add your form elements here -->
+        <div class="content-wrapper">
+            <label for="weight" class="blacktext">Log My Weight:</label>
+            <button type="button" onclick="toggleWeightForm()">Close</button>
+        </div>
+        <div>        
+            <input type="date" name="date" id="dateInput" value="">
+        </div>
+        <input type="text" id="weight" name="weight">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div id="weightChart">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <h2>My Chart</h2>
+    <canvas id="myChart" width="400" height="200"></canvas>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const graphData = {{ graph_data | safe }};
+            new Chart(ctx, {
+                type: 'line',
+                data: graphData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</div>
+
+
+
+
+{% endblock %}

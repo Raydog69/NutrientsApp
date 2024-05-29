@@ -183,7 +183,20 @@ def profile():
             "data": data
         }]
     }
+
     
+    db.session.delete(current_user)
+    friends_list = current_user.friends
+    friends_list.append(friend_id)
+    new_user = User(id = current_user.id, first_name=current_user.first_name, password=current_user.password, friends=friends_list)
+    db.session.add(new_user)
+    db.session.commit()
+
+    print(current_user.friends)
+
+
+
+
     return render_template("profile_page.html", user=current_user, graph_data=json.dumps(graph_data))
 
 

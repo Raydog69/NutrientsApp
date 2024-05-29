@@ -52,3 +52,4 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     days = db.relationship('Day')
     selected_day = db.Column(db.Integer)
+    friends = db.Column(db.PickleType, nullable=False, default=[])

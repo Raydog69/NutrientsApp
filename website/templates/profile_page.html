@@ -74,12 +74,17 @@
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkr4HamH6evM84k6_hAyVYfJadO6cDUb7PdV-XFY289A&s" alt="">
         <div id="info">
             <h1 class="titleText">{{user.first_name}}</h1>
-            <p>{{user.fri}}</p>
+            {% if user.friends %}
+                <p>{{(user.friends) | length}}</p>
+            <!-- {% else %}
+                <p>0</p>
+            {% endif %} -->
+
         </div>
     </div>
 </div>
 <div>
-    <button onclick="toggleWeightForm()">Toggle Weight Form</button>
+    <button onclick="toggleWeightForm()">Add weight</button>
 </div>
 
 <div class="popup-overlay" onclick="toggleWeightForm()"></div>
